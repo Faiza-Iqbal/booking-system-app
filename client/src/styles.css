@@ -1,0 +1,31 @@
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+*{
+  font-family: Helvetica, sans-serif;
+}
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.sectionPadding{
+  padding: 60px 0;
+}
+.spacing{
+  margin: 30px auto,
+}
+.fullWidth{
+  width: 100%;
+}
+.border{
+  border-right: 1px solid lightgrey;
+}
+.flexBox{
+  display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
