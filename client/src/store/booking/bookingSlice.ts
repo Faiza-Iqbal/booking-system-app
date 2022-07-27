@@ -4,9 +4,10 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 // src
 import { SERVER_URL } from "../../constants/apiConstants";
 import api from "../../utils/api";
-import { FormDataType } from "./types";
+import { getCurrentUser } from "../../utils/helperFunctions";
+import { BookingType, UpdateBooking } from "./types";
 
-const initialState: FormDataType = {
+const initialState: BookingType = {
   name: "",
   email: "",
   phoneNo: "",
@@ -16,25 +17,36 @@ const initialState: FormDataType = {
   tourId: "",
 };
 
+const user = getCurrentUser();
+
 export const postBookingForm = createAsyncThunk(
   SERVER_URL,
-  async (formData: FormDataType) => {
+  async (formData: BookingType) => {
+    formData.userEmail = user.email;
     const response = await api.post(`${SERVER_URL}bookings`, formData);
     return response;
   }
 );
 
-// export const updateBooking = createAsyncThunk(
-//   `${SERVER_URL}bookings`,
-//   async ({ id, formData }) => {
-//     console.log("update bookings");
+export const getBooking = createAsyncThunk(
+  "get-booking",
+  async (id: string | undefined) => {
+    const response = await api.get(`${SERVER_URL}bookings`, {
+      params: { userEmail: user.email, tourId: id },
+    });
+    if (response.length > 0) return response[0];
+    else return initialState;
+  }
+);
 
-//     const response = await api.patch(`${SERVER_URL}bookings/${id}`, formData);
+export const updateBooking = createAsyncThunk(
+  `${SERVER_URL}bookings`,
+  async ({ id, data }: UpdateBooking) => {
+    const response = await api.patch(`${SERVER_URL}bookings/${id}`, data);
 
-//     console.log("update rs", response);
-//     return response;
-//   }
-// );
+    return response;
+  }
+);
 
 const bookingSlice = createSlice({
   name: "booking",
@@ -49,12 +61,12 @@ const bookingSlice = createSlice({
     builder.addCase(postBookingForm.rejected, (_, action) => {
       console.log("API request failed");
     });
-    // builder.addCase(updateBooking.fulfilled, (_, action) => {
-    //   return action.payload;
-    // });
-    // builder.addCase(updateBooking.rejected, (_, action) => {
-    //   console.log("API request failed");
-    // });
+    builder.addCase(getBooking.fulfilled, (_, action) => {
+      return action.payload;
+    });
+    builder.addCase(updateBooking.fulfilled, (_, action) => {
+      return action.payload;
+    });
   },
 });
 

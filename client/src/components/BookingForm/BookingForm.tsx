@@ -1,28 +1,30 @@
 // lib
-import { useState } from "react";
 import {
   Box,
   Typography,
   TextField,
   Select,
   MenuItem,
-  SelectChangeEvent,
   FormControl,
   Stack,
   useMediaQuery,
-  Button,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 // src
 import { useStyles } from "./BookingFormStyled.style";
 import SubmitButton from "./SubmitButton";
-import { postBookingForm } from "../../store/booking/bookingSlice";
+import {
+  getBooking,
+  postBookingForm,
+  updateBooking,
+} from "../../store/booking/bookingSlice";
 import { AppDispatch, stateType } from "../../store/types";
 import { mobile } from "../../styles/devices";
 import { saveTours } from "../../store/tours/toursSlice";
+import { useEffect } from "react";
 
 const BookingForm = () => {
   const tour = useSelector((state: stateType) => state?.tourDetails);
@@ -33,8 +35,31 @@ const BookingForm = () => {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm();
   const navigate = useNavigate();
+  const location = useLocation();
+  const booking = useSelector((state: stateType) => state?.booking);
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    if (location.pathname.includes("update-tour")) dispatch(getBooking(id));
+  }, []);
+
+  if (booking.userEmail) {
+    const fields = [
+      "name",
+      "email",
+      "phoneNo",
+      "numOfAdults",
+      "numOfChilds",
+      "paymentMethod",
+      "tourId",
+      "userEmail",
+    ];
+    fields.map((field) => setValue(field, booking[field]));
+  }
 
   const tourToSave = {
     name: tour?.title,
@@ -50,8 +75,14 @@ const BookingForm = () => {
   };
 
   const onSubmit = (data: any) => {
-    dispatch(postBookingForm(data));
-    dispatch(saveTours(tourToSave));
+    data.tourId = tour.id;
+
+    if (location.pathname.includes("update-tour"))
+      dispatch(updateBooking({ data, id: booking._id }));
+    else {
+      dispatch(postBookingForm(data));
+      dispatch(saveTours(tourToSave));
+    }
     navigate("/my-tours");
   };
 
@@ -85,7 +116,7 @@ const BookingForm = () => {
           </Typography>
           <TextField
             type="tel"
-            {...register("phone", { required: "Required" })}
+            {...register("phoneNo", { required: "Required" })}
             error={Boolean(errors.phone)}
             helperText={errors.phone ? "Please enter your phone number" : null}
           />
@@ -95,14 +126,14 @@ const BookingForm = () => {
             <Typography>Number of adults</Typography>
             <TextField
               type="number"
-              {...register("noOfAdults", { required: false })}
+              {...register("numOfAdults", { required: false })}
             />
           </FormControl>
           <FormControl sx={{ ml: 2 }}>
             <Typography>Number of children</Typography>
             <TextField
               type="number"
-              {...register("noOfAdults", { required: false })}
+              {...register("numOfChilds", { required: false })}
             />
           </FormControl>
         </Stack>

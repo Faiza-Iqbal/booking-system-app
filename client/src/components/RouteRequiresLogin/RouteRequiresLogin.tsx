@@ -1,9 +1,9 @@
 // li
 import { Navigate, Outlet } from "react-router-dom";
-import { useAuth0 } from "@auth0/auth0-react";
+import { getCurrentUser } from "../../utils/helperFunctions";
 
 const RouteRequiresLogin = () => {
-  const { user } = useAuth0();
+  const user = getCurrentUser();
 
   return user ? <Outlet /> : <Navigate to="/" />;
 };

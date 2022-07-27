@@ -29,6 +29,10 @@ const bookingSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  userEmail: {
+    type: String,
+    required: true,
+  },
 });
 
 const Booking = mongoose.model("Booking", bookingSchema);

@@ -46,3 +46,7 @@ export const getCurrentUser = () => {
   if (user) return JSON.parse(user);
   return null;
 };
+
+export const removeCurrentUser = () => {
+  return localStorage.removeItem("user");
+};

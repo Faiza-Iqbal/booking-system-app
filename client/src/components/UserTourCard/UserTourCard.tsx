@@ -23,6 +23,7 @@ import { AppDispatch } from "../../store/types";
 import { deleteTour } from "../../store/tours/toursSlice";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useState } from "react";
+import DialogBox from "../DialogBox";
 
 type UserTourCardProp = {
   tour: TourDetailType;
@@ -33,16 +34,20 @@ const UserTourCard = ({ tour }: UserTourCardProp) => {
   const dispatch = useDispatch<AppDispatch>();
   const { user } = useAuth0();
   const [actionVisible, setActionVisible] = useState(false);
+  const [confirmationDialog, setConfirmationDialog] = useState(false);
   const navigate = useNavigate();
 
   const deleteMyTour = (id: string | undefined) => {
+    console.log("deleteeeeee");
+    setConfirmationDialog(false);
     if (!id) return;
+    console.log("deleteeeeee 2");
     dispatch(deleteTour(id));
   };
 
   const updateMyBooking = (id: string | undefined) => {
     if (!id) return;
-    navigate(goToRoute("/book-tour", id));
+    navigate(goToRoute("/update-tour", id));
   };
 
   return (
@@ -87,7 +92,7 @@ const UserTourCard = ({ tour }: UserTourCardProp) => {
               update
             </ActionButton>
             <ActionButton
-              onClick={() => deleteMyTour(tour._id)}
+              onClick={() => setConfirmationDialog(true)}
               className={classes.buttonStyled}
             >
               delete
@@ -95,6 +100,11 @@ const UserTourCard = ({ tour }: UserTourCardProp) => {
           </Box>
         )}
       </CardActions>
+
+      <DialogBox
+        handleConfirmation={() => deleteMyTour(tour?.id)}
+        isOpen={confirmationDialog}
+      />
     </Card>
   );
 };

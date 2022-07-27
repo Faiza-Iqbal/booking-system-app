@@ -13,7 +13,19 @@ export const addBooking = async (req, res) => {
   }
 };
 
+export const getBooking = async (req, res) => {
+  console.log("req.params");
+
+  try {
+    const booking = await Booking.find(req.query);
+    res.json(booking);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
 export const updateBooking = async (req, res) => {
+  console.log("req.body", req.body);
   const { id: _id } = req.params;
   const booking = req.body;
   try {
@@ -24,6 +36,6 @@ export const updateBooking = async (req, res) => {
     );
     res.json(updatedBooking);
   } catch (error) {
-    res.status(404).json({ message: error.message });
+    res.status(401).json({ message: error.message });
   }
 };

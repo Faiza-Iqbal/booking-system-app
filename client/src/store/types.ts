@@ -1,4 +1,5 @@
 import store from ".";
+import { BookingType } from "./booking/types";
 import { placeType } from "./places/types";
 import { TourDetailType } from "./tourDetails/types";
 import { Tour } from "./tours/types";
@@ -9,6 +10,7 @@ export type stateType = {
   tours: Tour[];
   tourDetails: TourDetailType;
   weather: weatherType;
+  booking: BookingType;
 };
 
 export type AppDispatch = typeof store.dispatch;

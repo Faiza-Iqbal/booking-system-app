@@ -18,6 +18,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 // src
 import { useStyles } from "./NavbarStyled.style";
+import { removeCurrentUser } from "../../utils/helperFunctions";
 
 const Navbar = () => {
   const classes = useStyles();
@@ -37,6 +38,13 @@ const Navbar = () => {
 
   const handleCloseNavMenu = () => {
     setMobileMenu(null);
+  };
+
+  const logoutUser = () => {
+    removeCurrentUser();
+    logout({
+      returnTo: window.location.origin,
+    });
   };
 
   return (
@@ -69,11 +77,7 @@ const Navbar = () => {
                 {isAuthenticated ? (
                   <Link
                     className={classes.menuLink}
-                    onClick={() =>
-                      logout({
-                        returnTo: window.location.origin,
-                      })
-                    }
+                    onClick={() => logoutUser()}
                   >
                     Log out
                   </Link>
@@ -114,11 +118,7 @@ const Navbar = () => {
                 {isAuthenticated ? (
                   <Link
                     className={classes.menuLink}
-                    onClick={() =>
-                      logout({
-                        returnTo: window.location.origin,
-                      })
-                    }
+                    onClick={() => logoutUser()}
                   >
                     Log out
                   </Link>

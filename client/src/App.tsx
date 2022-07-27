@@ -22,8 +22,8 @@ function App() {
             <Route path="/" element={<RouteRequiresLogin />}>
               <Route path="/my-tours" element={<MyTours />} />
             </Route>
-            <Route path="/book-tour" element={<BookTour />} />
-            <Route path="/book-tour/:id" element={<UpdateBooking />} />
+            <Route path="/book-tour/:id" element={<BookTour />} />
+            <Route path="/update-tour/:id" element={<UpdateBooking />} />
             <Route path="/tour-detail/:id" element={<TourDetail />} />
           </Routes>
         </Auth0ProviderwithNavigate>

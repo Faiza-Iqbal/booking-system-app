@@ -1,5 +1,5 @@
 // lib
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Button,
   Dialog,
@@ -9,8 +9,17 @@ import {
   DialogTitle,
 } from "@mui/material";
 
-const DialogBox = () => {
-  const [open, setOpen] = useState(false);
+type DialogBoxProp = {
+  handleConfirmation: () => void;
+  isOpen: boolean;
+};
+
+const DialogBox = ({ handleConfirmation, isOpen }: DialogBoxProp) => {
+  const [open, setOpen] = useState(true);
+
+  useEffect(() => {
+    setOpen(isOpen);
+  }, [isOpen]);
 
   const handleClose = () => {
     setOpen(false);
@@ -26,7 +35,7 @@ const DialogBox = () => {
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={handleClose} autoFocus>
+        <Button onClick={() => handleConfirmation} autoFocus>
           Delete
         </Button>
       </DialogActions>

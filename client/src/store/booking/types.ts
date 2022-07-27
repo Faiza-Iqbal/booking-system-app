@@ -1,4 +1,5 @@
-export type FormDataType = {
+export type BookingType = {
+  _id?: string;
   name: string;
   email: string;
   phoneNo: string;
@@ -6,4 +7,11 @@ export type FormDataType = {
   numOfChilds: string;
   paymentMethod: string;
   tourId: string | null;
+  userEmail?: string;
+  [key: string]: any;
+};
+
+export type UpdateBooking = {
+  id?: string;
+  data: BookingType;
 };
