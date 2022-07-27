@@ -1,6 +1,8 @@
 .rdrCalendarWrapper {
   color: #000000;
   font-size: 12px;
+  box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%),
+    0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
 }
 
 .rdrDateDisplay {
@@ -169,7 +171,7 @@
     width: 18px;
     height: 2px;
     border-radius: 2px;
-    background: #3d91ff;
+    background: #ff7f50;
   }
 }
 
@@ -221,21 +223,6 @@
   left: 2px;
   right: 2px;
 }
-
-.rdrInRange {
-}
-
-// .rdrStartEdge{
-//   border-top-left-radius: 1.042em;
-//   border-bottom-left-radius: 1.042em;
-//   left: 2px;
-// }
-
-// .rdrEndEdge{
-//   border-top-right-radius: 1.042em;
-//   border-bottom-right-radius: 1.042em;
-//   right: 2px;
-// }
 
 .rdrSelected,
 .rdrStartEdge,
@@ -439,5 +426,10 @@
 .dateRangeWrap {
   width: 300px;
   position: absolute;
-  left: 0;
+  right: 190px;
+}
+@media screen and (max-width: 600px) {
+  .dateRangeWrap {
+    right: 70px;
+  }
 }

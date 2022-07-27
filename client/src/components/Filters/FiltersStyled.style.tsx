@@ -23,7 +23,7 @@ export const useStyles = makeStyles(() =>
         background: secondary_dark,
         height: "100%",
         top: 0,
-        zIndex: 9,
+        zIndex: 11,
         width: "100%",
         "&:hover": {
           background: secondary_dark,
@@ -52,6 +52,18 @@ export const useStyles = makeStyles(() =>
       alignItems: "center",
       marginTop: "0px",
       boxShadow: box_shadow,
+    },
+    tabletAligned: {
+      borderTopLeftRadius: "10px",
+      borderTopRightRadius: "10px",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      boxShadow: box_shadow,
+      position: "relative",
+      width: "95%",
+      background: primary_light,
+      minHeight: "120px",
     },
   })
 );

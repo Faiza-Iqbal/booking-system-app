@@ -8,7 +8,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import Location from "./Location";
 import DatePicker from "./Date";
 import Price from "./Price";
-import { mobile } from "../../styles/devices";
+import { mobile, tablet } from "../../styles/devices";
 import ActionButton from "../ActionButton";
 import { fetchTours } from "../../store/tours";
 import { AppDispatch } from "../../store/types";
@@ -29,6 +29,7 @@ type FilterDates = {
 const Filters = ({ selectedPlace, setSelectedPlace }: FiltersProp) => {
   const classes = useStyles();
   const isMobile = useMediaQuery(mobile);
+  const isTablet = useMediaQuery(tablet);
   const dispatch = useDispatch<AppDispatch>();
   const [filterDates, setFilterDates] = useState({});
   const [price, setPrice] = useState("");
@@ -62,7 +63,15 @@ const Filters = ({ selectedPlace, setSelectedPlace }: FiltersProp) => {
 
   return (
     <Container className={classes.absoluteContainer}>
-      <Box className={isMobile ? classes.mobileAligned : classes.innerWrapper}>
+      <Box
+        className={
+          isMobile
+            ? classes.mobileAligned
+            : isTablet
+            ? classes.tabletAligned
+            : classes.innerWrapper
+        }
+      >
         <Location setSelectedPlace={setSelectedPlace} />
         {!isMobile && (
           <DatePicker

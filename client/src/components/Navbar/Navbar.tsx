@@ -21,8 +21,7 @@ import { useStyles } from "./NavbarStyled.style";
 
 const Navbar = () => {
   const classes = useStyles();
-  const { loginWithRedirect, isAuthenticated, logout, isLoading, user } =
-    useAuth0();
+  const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
   if (user) localStorage.setItem("user", JSON.stringify(user));
 
   const trigger = useScrollTrigger({
@@ -94,7 +93,12 @@ const Navbar = () => {
               Tour <span>bay</span>
             </Link>
           </Grid>
-          <Grid item lg={11} sx={{ display: { xs: "none", md: "block" } }}>
+          <Grid
+            item
+            md={10}
+            lg={11}
+            sx={{ display: { xs: "none", md: "block" } }}
+          >
             <List className={classes.lisStyled}>
               <ListItem>
                 <Link className={classes.menuLink} href="/">

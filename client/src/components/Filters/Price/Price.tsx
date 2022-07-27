@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 
 import { useStyles } from "./PriceStyled.style";
-import { mobile } from "../../../styles/devices";
+import { mobile, tablet } from "../../../styles/devices";
 
 type PriceProp = {
   price: string;
@@ -30,7 +30,7 @@ const Price = ({ price, setPrice }: PriceProp) => {
     <Box
       className={
         isMobile
-          ? `${classes.boxStyled}`
+          ? classes.boxStyled
           : `${classes.boxStyled} ${classes.boxPositioned}`
       }
     >

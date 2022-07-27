@@ -10,10 +10,10 @@ export const useStyles = makeStyles(() =>
   createStyles({
     boxStyled: {
       display: "flex",
-      padding: "20px",
+      padding: "20px 10px",
       background: primary_light,
-      zIndex: 10,
-      minWidth: "250px",
+      zIndex: 12,
+      maxWidth: "250px",
 
       "& .MuiOutlinedInput-notchedOutline": {
         border: "none",

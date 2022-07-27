@@ -18,9 +18,9 @@ const LandingPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { user } = useAuth0();
 
-  useEffect(() => {
-    dispatch(fetchTours({ id: defaultToursId }));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(fetchTours({ id: defaultToursId }));
+  // }, []);
 
   return (
     <Box>

@@ -11,13 +11,12 @@ export const useStyles = makeStyles(() =>
     boxStyled: {
       display: "flex",
       padding: "19px",
-      minWidth: "250px",
       maxWidth: "200px",
       width: "100%",
       borderTopRightRadius: "15px",
       background: primary_light,
-      right: 0,
-      zIndex: 9,
+      right: "0px",
+      zIndex: 10,
       "& .MuiOutlinedInput-notchedOutline": {
         border: "none",
       },
@@ -34,6 +33,16 @@ export const useStyles = makeStyles(() =>
     },
     boxPositioned: {
       position: "absolute",
+    },
+    boxStyledTablet: {
+      display: "flex",
+      padding: "19px",
+      maxWidth: "200px",
+      width: "100%",
+      borderTopRightRadius: "15px",
+      background: primary_light,
+      right: "0px",
+      zIndex: 10,
     },
   })
 );
