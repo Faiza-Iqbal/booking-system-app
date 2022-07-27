@@ -15,7 +15,7 @@ export const useStyles = makeStyles(() =>
       width: "100%",
       borderTopRightRadius: "15px",
       background: primary_light,
-      right: "0px",
+      right: "50px",
       zIndex: 10,
       "& .MuiOutlinedInput-notchedOutline": {
         border: "none",
@@ -43,6 +43,18 @@ export const useStyles = makeStyles(() =>
       background: primary_light,
       right: "0px",
       zIndex: 10,
+      "& .MuiOutlinedInput-notchedOutline": {
+        border: "none",
+      },
+      "& .MuiSvgIcon-root": {
+        backgroundColor: primary_deep_light,
+        width: 18,
+        height: 20,
+        marginTop: 2,
+        marginRight: 5,
+        color: main,
+        borderRadius: "50%",
+      },
     },
   })
 );

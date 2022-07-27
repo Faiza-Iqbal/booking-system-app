@@ -21,6 +21,7 @@ type PriceProp = {
 const Price = ({ price, setPrice }: PriceProp) => {
   const classes = useStyles();
   const isMobile = useMediaQuery(mobile);
+  const isTablet = useMediaQuery(tablet);
 
   const handleChange = (event: SelectChangeEvent) => {
     setPrice(event.target.value as string);
@@ -31,6 +32,8 @@ const Price = ({ price, setPrice }: PriceProp) => {
       className={
         isMobile
           ? classes.boxStyled
+          : isTablet
+          ? `${classes.boxStyledTablet} ${classes.boxPositioned}`
           : `${classes.boxStyled} ${classes.boxPositioned}`
       }
     >
