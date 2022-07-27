@@ -21,8 +21,10 @@ import { useStyles } from "./NavbarStyled.style";
 
 const Navbar = () => {
   const classes = useStyles();
-  const { loginWithRedirect, isAuthenticated, logout, isLoading } = useAuth0();
-  console.log("isAuthenticated", isAuthenticated);
+  const { loginWithRedirect, isAuthenticated, logout, isLoading, user } =
+    useAuth0();
+  if (user) localStorage.setItem("user", JSON.stringify(user));
+
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 100,

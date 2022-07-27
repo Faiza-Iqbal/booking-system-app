@@ -54,7 +54,7 @@ const TourDetail = () => {
         </Typography>
         <Box className={isMobile ? classes.mobileView : classes.desktopView}>
           {weather.forecast.forecastday.map((dayObj, index) => (
-            <WeatherCard dayObj={dayObj} />
+            <WeatherCard key={index} dayObj={dayObj} />
           ))}
         </Box>
         <Box>

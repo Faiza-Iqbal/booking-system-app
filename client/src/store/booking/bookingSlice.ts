@@ -19,7 +19,7 @@ const initialState: FormDataType = {
 export const postBookingForm = createAsyncThunk(
   SERVER_URL,
   async (formData: FormDataType) => {
-    const response = await api.post(`${SERVER_URL}posts`, formData);
+    const response = await api.post(`${SERVER_URL}bookings`, formData);
     return response;
   }
 );

@@ -3,7 +3,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import postRoutes from "./routes/bookings.js";
+import bookingRotes from "./routes/bookings.js";
 import tourRoutes from "./routes/tours.js";
 import { MongoClient } from "mongodb";
 
@@ -17,7 +17,7 @@ app.use(cors());
 
 app.get("/", async (req, res) => res.send("This is working"));
 
-app.use("/posts", postRoutes);
+app.use("/bookings", bookingRotes);
 app.use("/tours", tourRoutes);
 
 app.listen(port, () => {

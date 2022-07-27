@@ -3,7 +3,7 @@ import { Box, Grid, Typography } from "@mui/material";
 import { useStyles } from "../../components/ActionButton";
 
 type TourFeaturesType = {
-  tourFeatures: string[];
+  tourFeatures: string[] | undefined;
 };
 
 const TourFeatures = ({ tourFeatures }: TourFeaturesType) => {
@@ -17,7 +17,7 @@ const TourFeatures = ({ tourFeatures }: TourFeaturesType) => {
         </Grid>
         <Grid item md={8}>
           <Typography className={classes.normalText}>
-            {`${tourFeatures[0]}, ${tourFeatures[1]}`}
+            {tourFeatures && `${tourFeatures[0]}, ${tourFeatures[1]}`}
           </Typography>
         </Grid>
       </Grid>

@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 
 const tourSchema = mongoose.Schema({
+  userEmail: {
+    type: String,
+    required: true,
+  },
   name: {
     type: String,
     required: true,
@@ -11,16 +15,13 @@ const tourSchema = mongoose.Schema({
   },
   description: {
     type: String,
-    required: true,
+    required: false,
   },
   price: {
     type: String,
     required: true,
   },
-  duration: {
-    type: String,
-    required: true,
-  },
+
   startDate: {
     type: String,
     required: true,
@@ -29,7 +30,8 @@ const tourSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  facilities: [{ type: String, required: true }],
+  facilities: [{ type: String, required: false }],
+  images: [{ type: String, required: false }],
 });
 
 const Tour = mongoose.model("Tour", tourSchema);

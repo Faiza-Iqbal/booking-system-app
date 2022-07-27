@@ -16,7 +16,7 @@ const ImageGallery = ({ images }: ImageGalleryType) => {
       cols={3}
       rowHeight={121}
     >
-      {images.map((item) => (
+      {images?.map((item) => (
         <ImageListItem key={item}>
           <img
             src={item}

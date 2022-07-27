@@ -6,12 +6,20 @@ import { useAuth0 } from "@auth0/auth0-react";
 import TourCard from "../../components/TourCard";
 import { useStyles } from "../../components/ActionButton";
 import { mobile } from "../../styles/devices";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, stateType } from "../../store/types";
+import { myTours } from "../../store/tours/toursSlice";
 
 const MyTours = () => {
   const classes = useStyles();
   const isMobile = useMediaQuery(mobile);
-  const { user } = useAuth0();
-  console.log("user", user);
+  const dispatch = useDispatch<AppDispatch>();
+  const userTours = useSelector((state: stateType) => state?.tours);
+
+  useEffect(() => {
+    dispatch(myTours("test"));
+  }, []);
 
   return (
     <Box className="sectionPadding">
@@ -20,7 +28,10 @@ const MyTours = () => {
           My Tours
         </Typography>
         <Box className={isMobile ? classes.mobileView : classes.desktopView}>
-          {/* <TourCard /> */}
+          {userTours &&
+            userTours.map((userTour, index) => (
+              <TourCard key={`${userTour.id}_${index}`} tour={userTour} />
+            ))}
         </Box>
       </Container>
     </Box>

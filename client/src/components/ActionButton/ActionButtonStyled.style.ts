@@ -56,6 +56,7 @@ export const useStyles = makeStyles(() =>
       display: "flex",
       flexDirection: "row",
       justifyContent: "space-between",
+      flexWrap: "wrap",
     },
   })
 );

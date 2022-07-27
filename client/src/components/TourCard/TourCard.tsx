@@ -17,19 +17,28 @@ import ActionButton from "../ActionButton";
 import { Tour } from "../../store/tours/types";
 import { getTourDays, goToRoute } from "../../utils/helperFunctions";
 import { setTourDetails } from "../../store/tourDetails";
+import { TourDetailType } from "../../store/tourDetails/types";
+import { AppDispatch } from "../../store/types";
+import { deleteTour } from "../../store/tours/toursSlice";
 
 type TourCardProp = {
-  tour: Tour;
+  tour: TourDetailType;
 };
 
 const TourCard = ({ tour }: TourCardProp) => {
   const classes = useStyles();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
-  const goToTourDetail = (tourId: string) => {
+  const goToTourDetail = (tourId: string | undefined) => {
+    if (!tourId) return;
     dispatch(setTourDetails(tour));
     navigate(goToRoute("/tour-detail", tourId));
+  };
+
+  const deleteMyTour = (id: string | undefined) => {
+    if (!id) return;
+    dispatch(deleteTour(id));
   };
 
   return (
@@ -60,8 +69,10 @@ const TourCard = ({ tour }: TourCardProp) => {
           {tour.price}
         </Typography>
         <Typography className={classes.smallTypo}>
-          <AccessTimeIcon /> {getTourDays(tour.checkin, tour.checkout)}
+          <AccessTimeIcon />
+          {`${getTourDays(tour?.checkin, tour?.checkout)} Days`}
         </Typography>
+        <button onClick={() => deleteMyTour(tour?.id)}>delete tour</button>
       </CardActions>
     </Card>
   );

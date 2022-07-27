@@ -32,11 +32,22 @@ const BookingForm = () => {
   const tour = useSelector((state: stateType) => state?.tourDetails);
   const search = useLocation().search;
   const tourId = new URLSearchParams(search).get("id");
-  const tour_id = window.location.href.split("tour/")[1];
-
   const classes = useStyles();
   const dispatch = useDispatch<AppDispatch>();
   const isMobile = useMediaQuery(mobile);
+
+  console.log("tour", tour);
+  const tourToSave = {
+    name: tour?.title,
+    city: tour?.city,
+    description: tour?.listingName,
+    price: tour?.price,
+    startDate: tour?.checkin,
+    endDate: tour?.checkout,
+    facilities: tour?.listingPreviewAmenityNames,
+    images: tour?.images,
+  };
+  const tour_id = window.location.href.split("tour/")[1];
 
   const handlePaymentMethod = (event: SelectChangeEvent) => {
     setPaymentMethod(event.target.value);
@@ -54,7 +65,7 @@ const BookingForm = () => {
 
   const onFormSubmit = (e: React.MouseEvent<HTMLElement>) => {
     dispatch(postBookingForm(bookingFormData));
-    dispatch(saveTours(tour));
+    dispatch(saveTours(tourToSave));
   };
 
   return (
