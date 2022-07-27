@@ -24,7 +24,6 @@ export const fetchPlaces = createAsyncThunk(
         "X-RapidAPI-Host": API_HOST,
       },
     });
-    console.log("places", response.data);
     return response.data;
   }
 );

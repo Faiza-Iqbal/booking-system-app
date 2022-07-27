@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, stateType } from "../../store/types";
 import { myTours } from "../../store/tours/toursSlice";
+import UserTourCard from "../../components/UserTourCard/UserTourCard";
 
 const MyTours = () => {
   const classes = useStyles();
@@ -30,7 +31,7 @@ const MyTours = () => {
         <Box className={isMobile ? classes.mobileView : classes.desktopView}>
           {userTours &&
             userTours.map((userTour, index) => (
-              <TourCard key={`${userTour.id}_${index}`} tour={userTour} />
+              <UserTourCard key={`${userTour.id}_${index}`} tour={userTour} />
             ))}
         </Box>
       </Container>

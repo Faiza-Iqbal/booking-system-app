@@ -24,6 +24,18 @@ export const postBookingForm = createAsyncThunk(
   }
 );
 
+// export const updateBooking = createAsyncThunk(
+//   `${SERVER_URL}bookings`,
+//   async ({ id, formData }) => {
+//     console.log("update bookings");
+
+//     const response = await api.patch(`${SERVER_URL}bookings/${id}`, formData);
+
+//     console.log("update rs", response);
+//     return response;
+//   }
+// );
+
 const bookingSlice = createSlice({
   name: "booking",
   initialState,
@@ -37,6 +49,12 @@ const bookingSlice = createSlice({
     builder.addCase(postBookingForm.rejected, (_, action) => {
       console.log("API request failed");
     });
+    // builder.addCase(updateBooking.fulfilled, (_, action) => {
+    //   return action.payload;
+    // });
+    // builder.addCase(updateBooking.rejected, (_, action) => {
+    //   console.log("API request failed");
+    // });
   },
 });
 

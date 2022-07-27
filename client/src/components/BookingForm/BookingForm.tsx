@@ -10,9 +10,11 @@ import {
   FormControl,
   Stack,
   useMediaQuery,
+  Button,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 // src
 import { useStyles } from "./BookingFormStyled.style";
@@ -23,20 +25,17 @@ import { mobile } from "../../styles/devices";
 import { saveTours } from "../../store/tours/toursSlice";
 
 const BookingForm = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phoneNo, setPhoneNo] = useState("");
-  const [numOfAdults, setNumOfAdults] = useState("0");
-  const [numOfChilds, setNumOfChilds] = useState("0");
-  const [paymentMethod, setPaymentMethod] = useState("");
   const tour = useSelector((state: stateType) => state?.tourDetails);
-  const search = useLocation().search;
-  const tourId = new URLSearchParams(search).get("id");
   const classes = useStyles();
   const dispatch = useDispatch<AppDispatch>();
   const isMobile = useMediaQuery(mobile);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const navigate = useNavigate();
 
-  console.log("tour", tour);
   const tourToSave = {
     name: tour?.title,
     city: tour?.city,
@@ -46,90 +45,84 @@ const BookingForm = () => {
     endDate: tour?.checkout,
     facilities: tour?.listingPreviewAmenityNames,
     images: tour?.images,
-  };
-  const tour_id = window.location.href.split("tour/")[1];
-
-  const handlePaymentMethod = (event: SelectChangeEvent) => {
-    setPaymentMethod(event.target.value);
+    publicAddress: tour?.publicAddress,
+    id: tour?.id,
   };
 
-  const bookingFormData = {
-    name: name,
-    email: email,
-    phoneNo: phoneNo,
-    numOfAdults: numOfAdults,
-    numOfChilds: numOfChilds,
-    paymentMethod: paymentMethod,
-    tourId: tour_id,
-  };
-
-  const onFormSubmit = (e: React.MouseEvent<HTMLElement>) => {
-    dispatch(postBookingForm(bookingFormData));
+  const onSubmit = (data: any) => {
+    dispatch(postBookingForm(data));
     dispatch(saveTours(tourToSave));
+    navigate("/my-tours");
   };
 
   return (
     <Box className={isMobile ? classes.mobileFormView : classes.formWrapper}>
-      <FormControl fullWidth>
-        <Typography>
-          Name <span className={classes.mandatory}>*</span>
-        </Typography>
-        <TextField value={name} onChange={(e) => setName(e.target.value)} />
-      </FormControl>
-      <FormControl fullWidth>
-        <Typography>
-          Email<span className={classes.mandatory}>*</span>
-        </Typography>
-        <TextField
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </FormControl>
-      <FormControl fullWidth>
-        <Typography>
-          Phone <span className={classes.mandatory}>*</span>
-        </Typography>
-        <TextField
-          type="tel"
-          value={phoneNo}
-          onChange={(e) => setPhoneNo(e.target.value)}
-        />
-      </FormControl>
-      <Stack flexDirection="row">
-        <FormControl>
-          <Typography>Number of adults</Typography>
-          <TextField
-            type="number"
-            value={numOfAdults}
-            onChange={(e) => setNumOfAdults(e.target.value)}
-          />
-        </FormControl>
-        <FormControl sx={{ ml: 2 }}>
-          <Typography>Number of children</Typography>
-          <TextField
-            type="number"
-            value={numOfChilds}
-            onChange={(e) => setNumOfChilds(e.target.value)}
-          />
-        </FormControl>
-      </Stack>
-      <Box>
-        <Typography>
-          Payment Method<span className={classes.mandatory}>*</span>
-        </Typography>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl fullWidth>
-          <Select
-            value={paymentMethod}
-            onChange={handlePaymentMethod}
-            placeholder="Select"
-          >
-            <MenuItem value="Method 1">Method 1</MenuItem>
-            <MenuItem value="Method 2"> Method 2</MenuItem>
-          </Select>
+          <Typography>
+            Name <span className={classes.mandatory}>*</span>
+          </Typography>
+          <TextField
+            {...register("name", { required: "Required" })}
+            error={Boolean(errors.name)}
+            helperText={errors.name ? "Please enter your name" : null}
+          />
         </FormControl>
-      </Box>
-      <SubmitButton label="Confirm" onFormSubmit={onFormSubmit} />
+        <FormControl fullWidth>
+          <Typography>
+            Email<span className={classes.mandatory}>*</span>
+          </Typography>
+          <TextField
+            type="email"
+            {...register("email", { required: "Required" })}
+            error={Boolean(errors.email)}
+            helperText={errors.email ? "Please enter your email" : null}
+          />
+        </FormControl>
+        <FormControl fullWidth>
+          <Typography>
+            Phone <span className={classes.mandatory}>*</span>
+          </Typography>
+          <TextField
+            type="tel"
+            {...register("phone", { required: "Required" })}
+            error={Boolean(errors.phone)}
+            helperText={errors.phone ? "Please enter your phone number" : null}
+          />
+        </FormControl>
+        <Stack flexDirection="row">
+          <FormControl>
+            <Typography>Number of adults</Typography>
+            <TextField
+              type="number"
+              {...register("noOfAdults", { required: false })}
+            />
+          </FormControl>
+          <FormControl sx={{ ml: 2 }}>
+            <Typography>Number of children</Typography>
+            <TextField
+              type="number"
+              {...register("noOfAdults", { required: false })}
+            />
+          </FormControl>
+        </Stack>
+        <Box>
+          <Typography>
+            Payment Method<span className={classes.mandatory}>*</span>
+          </Typography>
+          <FormControl fullWidth>
+            <Select
+              {...register("paymentMethod", { required: "Required" })}
+              error={Boolean(errors.paymentMethod)}
+              placeholder="Select"
+            >
+              <MenuItem value="Method 1">Method 1</MenuItem>
+              <MenuItem value="Method 2"> Method 2</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
+        <SubmitButton label="Confirm" />
+      </form>
     </Box>
   );
 };

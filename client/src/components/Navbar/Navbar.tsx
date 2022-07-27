@@ -62,11 +62,6 @@ const Navbar = () => {
                 </Link>
               </MenuItem>
               <MenuItem>
-                <Link className={classes.menuLink} href="/book-tour">
-                  Book Tour
-                </Link>
-              </MenuItem>
-              <MenuItem>
                 <Link className={classes.menuLink} href="/my-tours">
                   My Tours
                 </Link>
@@ -104,11 +99,6 @@ const Navbar = () => {
               <ListItem>
                 <Link className={classes.menuLink} href="/">
                   Tours
-                </Link>
-              </ListItem>
-              <ListItem>
-                <Link className={classes.menuLink} href="/book-tour">
-                  Book Tour
                 </Link>
               </ListItem>
               <ListItem>

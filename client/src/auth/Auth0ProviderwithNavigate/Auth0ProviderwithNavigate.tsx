@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 type AuthOPropsType = {
   children: React.ReactNode;
 };
-const Auth0ProviderWithHistory = ({ children }: AuthOPropsType) => {
+const Auth0ProviderwithNavigate = ({ children }: AuthOPropsType) => {
   const domain = process.env.REACT_APP_AUTH0_DOMAIN || "";
   const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID || "";
 
@@ -27,4 +27,4 @@ const Auth0ProviderWithHistory = ({ children }: AuthOPropsType) => {
   );
 };
 
-export default Auth0ProviderWithHistory;
+export default Auth0ProviderwithNavigate;

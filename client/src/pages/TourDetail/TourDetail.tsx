@@ -22,7 +22,6 @@ const TourDetail = () => {
   const navigate = useNavigate();
   const tourDetail = useSelector((state: stateType) => state?.tourDetails);
   const weather = useSelector((state: stateType) => state?.weather);
-  console.log("tourDetail", tourDetail);
 
   const locationName = tourDetail.publicAddress;
 

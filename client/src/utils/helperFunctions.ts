@@ -8,7 +8,6 @@ export const getTourDays = (
   const duration = Math.round(
     (+checkOutDate - +checkInDate) / (1000 * 60 * 60 * 24)
   );
-  console.log("duration", duration);
 
   return duration;
 };

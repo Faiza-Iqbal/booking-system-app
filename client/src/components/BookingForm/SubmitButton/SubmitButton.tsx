@@ -4,18 +4,13 @@ import { useStyles } from "./SubmitButtonStyled.style";
 
 type SubmitButtonProps = {
   label: string;
-  onFormSubmit: (event: React.MouseEvent<HTMLElement>) => void;
 };
 
-const SubmitButton = ({ label, onFormSubmit }: SubmitButtonProps) => {
+const SubmitButton = ({ label }: SubmitButtonProps) => {
   const classes = useStyles();
 
   return (
-    <Button
-      className={classes.buttonStyled}
-      type="submit"
-      onClick={onFormSubmit}
-    >
+    <Button className={classes.buttonStyled} type="submit">
       {label}
     </Button>
   );

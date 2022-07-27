@@ -34,7 +34,6 @@ export const getWeatherForecast = createAsyncThunk(
     const response = await axios.get(
       `${WEATHER_API_BASE_URL}v1/forecast.json?key=${WEATHER_API_KEY}&q=${cityName}&days=${FORECAST_DAYS}`
     );
-    console.log("weather response", response.data);
     return response.data;
   }
 );

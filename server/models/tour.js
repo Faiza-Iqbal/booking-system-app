@@ -9,7 +9,15 @@ const tourSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  id: {
+    type: String,
+    required: true,
+  },
   city: {
+    type: String,
+    required: true,
+  },
+  publicAddress: {
     type: String,
     required: true,
   },

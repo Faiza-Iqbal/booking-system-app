@@ -7,22 +7,26 @@ import BookTour from "./pages/BookTour";
 import LandingPage from "./pages/LandingPage";
 import MyTours from "./pages/MyTours";
 import TourDetail from "./pages/TourDetail";
-import Auth0ProviderWithHistory from "./auth/Auth0ProviderWithHistory";
+import Auth0ProviderwithNavigate from "./auth/Auth0ProviderwithNavigate";
+import UpdateBooking from "./pages/UpdateBooking";
+import RouteRequiresLogin from "./components/RouteRequiresLogin/RouteRequiresLogin";
 
 function App() {
   return (
     <>
       <Router>
-        <Auth0ProviderWithHistory>
+        <Auth0ProviderwithNavigate>
           <Navbar />
           <Routes>
             <Route path="/" element={<LandingPage />} />
-            <Route path="/my-tours" element={<MyTours />} />
+            <Route path="/" element={<RouteRequiresLogin />}>
+              <Route path="/my-tours" element={<MyTours />} />
+            </Route>
             <Route path="/book-tour" element={<BookTour />} />
-            <Route path="/book-tour/:id" element={<BookTour />} />
+            <Route path="/book-tour/:id" element={<UpdateBooking />} />
             <Route path="/tour-detail/:id" element={<TourDetail />} />
           </Routes>
-        </Auth0ProviderWithHistory>
+        </Auth0ProviderwithNavigate>
       </Router>
     </>
   );
