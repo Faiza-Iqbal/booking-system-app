@@ -18,9 +18,9 @@ const PopularSearch = () => {
   const popularPlaces = POPULAR_PLACES;
 
   return (
-    <Box className="sectionPadding">
+    <Box sx={{ pt: 6 }}>
       <Container className={classes.centerAlign}>
-        <Typography variant="h5" sx={{ m: 2 }}>
+        <Typography variant="h5" sx={{ m: 3 }}>
           Popular Search
         </Typography>
         <Box

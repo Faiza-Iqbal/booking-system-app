@@ -16,9 +16,9 @@ const LandingPage = () => {
   const [selectedPlace, setSelectedPlace] = useState<placeType>(null);
   const dispatch = useDispatch<AppDispatch>();
 
-  // useEffect(() => {
-  //   dispatch(fetchTours({ id: defaultToursId }));
-  // }, []);
+  useEffect(() => {
+    dispatch(fetchTours({ id: defaultToursId }));
+  }, []);
 
   return (
     <Box>

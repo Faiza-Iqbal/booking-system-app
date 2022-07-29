@@ -18,9 +18,13 @@ const Destinations = ({ selectedPlace }: DestinationsProps) => {
 
   return (
     <Box className="sectionPadding">
-      {selectedPlace?.location_name && (
+      {selectedPlace?.location_name ? (
         <Typography variant="h5" className={classes.titleText}>
           {`Top Destinations at ${selectedPlace.location_name}`}
+        </Typography>
+      ) : (
+        <Typography variant="h5" className={classes.titleText}>
+          {`Top Destinations at Turkey`}
         </Typography>
       )}
       <Box className="sectionPadding flexBox">
