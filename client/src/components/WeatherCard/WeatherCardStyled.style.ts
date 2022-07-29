@@ -20,7 +20,7 @@ export const useStyles = makeStyles(() =>
 
     smallText: {
       "&.MuiListItem-root": {
-        fontSize: "12px",
+        fontSize: "13px",
         color: DARKSLATEGRAY,
       },
     },

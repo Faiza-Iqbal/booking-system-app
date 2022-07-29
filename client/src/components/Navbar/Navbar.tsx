@@ -18,13 +18,16 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 // src
 import { useStyles } from "./NavbarStyled.style";
-import { removeCurrentUser } from "../../utils/helperFunctions";
 import { LOGO } from "../../constants/staticUrls";
+import { useDispatch, useSelector } from "react-redux";
+import { stateType } from "../../store/types";
+import { removeUser } from "../../store/user";
 
 const Navbar = () => {
   const classes = useStyles();
-  const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
-  if (user) localStorage.setItem("user", JSON.stringify(user));
+  const { loginWithRedirect, logout } = useAuth0();
+  const user = useSelector((state: stateType) => state.user);
+  const dispatch = useDispatch();
 
   const trigger = useScrollTrigger({
     disableHysteresis: true,
@@ -42,7 +45,7 @@ const Navbar = () => {
   };
 
   const logoutUser = () => {
-    removeCurrentUser();
+    dispatch(removeUser(null));
     logout({
       returnTo: window.location.origin,
     });
@@ -75,7 +78,7 @@ const Navbar = () => {
                 </Link>
               </MenuItem>
               <MenuItem>
-                {isAuthenticated ? (
+                {user ? (
                   <Link
                     className={classes.menuLink}
                     onClick={() => logoutUser()}
@@ -116,7 +119,7 @@ const Navbar = () => {
                 </Link>
               </ListItem>
               <ListItem>
-                {isAuthenticated ? (
+                {user ? (
                   <Link
                     className={classes.menuLink}
                     onClick={() => logoutUser()}

@@ -55,6 +55,7 @@ export const useStyles = makeStyles(() =>
         height: 15,
         color: MAIN,
         borderRadius: "50%",
+        marginRight: "4px",
       },
     },
 

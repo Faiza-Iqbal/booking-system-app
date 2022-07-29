@@ -1,3 +1,4 @@
+import { User } from "@auth0/auth0-react";
 import { TourDetailType } from "../store/tourDetails/types";
 
 export const getTourDays = (
@@ -46,6 +47,10 @@ export const getMonthFromDateObj = (date: Date) => {
   };
 
   return dayMonthFormat;
+};
+
+export const setCurrentUser = (user: User) => {
+  localStorage.setItem("user", JSON.stringify(user));
 };
 
 export const getCurrentUser = () => {

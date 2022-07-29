@@ -1,5 +1,5 @@
 // lib
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   Box,
   Typography,
@@ -25,6 +25,7 @@ import { AppDispatch, stateType } from "../../store/types";
 import { saveTours } from "../../store/tours/toursSlice";
 import { useStyles } from "./BookingFormStyled.style";
 import { MOBILE } from "../../styles/devices";
+import { getStoredTourDetail } from "../../utils/helperFunctions";
 
 const BookingForm = () => {
   const classes = useStyles();
@@ -34,7 +35,8 @@ const BookingForm = () => {
   const isMobile = useMediaQuery(MOBILE);
   const dispatch = useDispatch<AppDispatch>();
   const booking = useSelector((state: stateType) => state?.booking);
-  const tour = useSelector((state: stateType) => state?.tourDetails);
+  const [loading, setLoading] = useState(false);
+  const [localTourDetail, setLocalTourDetail] = useState(getStoredTourDetail());
   const {
     register,
     handleSubmit,
@@ -43,16 +45,16 @@ const BookingForm = () => {
   } = useForm();
 
   const tourToSave = {
-    name: tour?.title,
-    city: tour?.city,
-    description: tour?.listingName,
-    price: tour?.price,
-    startDate: tour?.checkin,
-    endDate: tour?.checkout,
-    facilities: tour?.listingPreviewAmenityNames,
-    images: tour?.images,
-    publicAddress: tour?.publicAddress,
-    id: tour?.id,
+    name: localTourDetail?.title,
+    city: localTourDetail?.city,
+    description: localTourDetail?.listingName,
+    price: localTourDetail?.price,
+    startDate: localTourDetail?.checkin,
+    endDate: localTourDetail?.checkout,
+    facilities: localTourDetail?.listingPreviewAmenityNames,
+    images: localTourDetail?.images,
+    publicAddress: localTourDetail?.publicAddress,
+    id: id ? id : localTourDetail?.id,
   };
 
   useEffect(() => {
@@ -74,15 +76,21 @@ const BookingForm = () => {
   }
 
   const onSubmit = (data: any) => {
-    data.tourId = tour.id;
+    setLoading(true);
 
-    if (location.pathname.includes("update-tour"))
-      dispatch(updateBooking({ data, id: booking._id }));
-    else {
-      dispatch(postBookingForm(data));
-      dispatch(saveTours(tourToSave));
+    data.tourId = id;
+    try {
+      if (location.pathname.includes("update-tour"))
+        dispatch(updateBooking({ data, id: booking._id }));
+      else {
+        dispatch(postBookingForm(data));
+        dispatch(saveTours(tourToSave));
+      }
+      navigate("/my-tours");
+      setLoading(false);
+    } catch (error) {
+      setLoading(true);
     }
-    navigate("/my-tours");
   };
 
   return (
@@ -152,7 +160,7 @@ const BookingForm = () => {
             </Select>
           </FormControl>
         </Box>
-        <SubmitButton label="Confirm" />
+        <SubmitButton label="Confirm" loading={loading} />
       </form>
     </Box>
   );

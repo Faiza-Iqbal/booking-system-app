@@ -20,7 +20,7 @@ const initialState: BookingType = {
 const user = getCurrentUser();
 
 export const postBookingForm = createAsyncThunk(
-  SERVER_URL,
+  "post_booking",
   async (formData: BookingType) => {
     formData.userEmail = user.email;
     const response = await api.post(`${SERVER_URL}bookings`, formData);
@@ -40,7 +40,7 @@ export const getBooking = createAsyncThunk(
 );
 
 export const updateBooking = createAsyncThunk(
-  `${SERVER_URL}bookings`,
+  `update_booking`,
   async ({ id, data }: UpdateBooking) => {
     const response = await api.patch(`${SERVER_URL}bookings/${id}`, data);
 

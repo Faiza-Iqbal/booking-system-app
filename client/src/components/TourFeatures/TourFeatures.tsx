@@ -10,12 +10,12 @@ const TourFeatures = ({ tourFeatures }: TourFeaturesProps) => {
   const classes = useStyles();
 
   return (
-    <Box className="sectionPadding">
+    <Box className={classes.featuresWrapper}>
       <Grid container>
-        <Grid item md={4}>
-          <Typography className={classes.boldText}>Facilities</Typography>
+        <Grid item md={2}>
+          <Typography className={classes.boldText}>Facilities:</Typography>
         </Grid>
-        <Grid item md={8}>
+        <Grid item md={10}>
           <Typography className={classes.normalText}>
             {tourFeatures
               ? `${tourFeatures[0]}, ${tourFeatures[1]}`

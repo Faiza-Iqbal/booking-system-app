@@ -1,6 +1,7 @@
-import { Box, Container } from "@mui/material";
+// lib
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { Box, Container } from "@mui/material";
 
 // src
 import Banner from "../../components/Banner";

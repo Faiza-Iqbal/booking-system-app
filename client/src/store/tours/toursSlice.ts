@@ -39,7 +39,7 @@ export const fetchTours = createAsyncThunk(
 );
 
 export const saveTours = createAsyncThunk(
-  SERVER_URL,
+  "saveTours",
   async (tour: TourDetailType) => {
     const user = getCurrentUser();
 

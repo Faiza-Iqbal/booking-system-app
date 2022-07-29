@@ -35,10 +35,12 @@ const WeatherCard = ({ dayObj, day }: WeatherCardProps) => {
               {dayObj?.day?.condition?.text}
             </ListItem>
             <ListItem className={classes.smallText}>
-              {`Sun Rise: ${dayObj?.astro?.sunrise}`}
+              <b>Sun Rise </b>
+              {` : ${dayObj?.astro?.sunrise}`}
             </ListItem>
             <ListItem className={classes.smallText}>
-              {`Sun Set: ${dayObj?.astro?.sunset}`}
+              <b>Sun Set</b>
+              {`: ${dayObj?.astro?.sunset}`}
             </ListItem>
           </List>
         </CardContent>

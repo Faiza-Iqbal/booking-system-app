@@ -1,3 +1,4 @@
+import { User } from "@auth0/auth0-react";
 import store from ".";
 
 // src
@@ -13,6 +14,7 @@ export type stateType = {
   tourDetails: TourDetailType;
   weather: weatherType;
   booking: BookingType;
+  user: User;
 };
 
 export type AppDispatch = typeof store.dispatch;

@@ -5,6 +5,7 @@ import {
   SECONDARY_DARK,
   PRIMARY_LIGHT,
   DARKSLATEGRAY,
+  PRIMARY_DEEP_LIGHT,
 } from "../../styles/colors";
 
 export const useStyles = makeStyles(() =>
@@ -44,7 +45,7 @@ export const useStyles = makeStyles(() =>
       "&.MuiTypography-root": {
         fontWeight: 600,
         color: DARKSLATEGRAY,
-        marginBottom: "20px",
+        margin: "30px 0px",
       },
     },
 
@@ -57,6 +58,10 @@ export const useStyles = makeStyles(() =>
       flexDirection: "row",
       justifyContent: "space-between",
       flexWrap: "wrap",
+    },
+    featuresWrapper: {
+      paddingBottom: "10px",
+      borderBottom: `1px solid ${PRIMARY_DEEP_LIGHT}`,
     },
   })
 );
