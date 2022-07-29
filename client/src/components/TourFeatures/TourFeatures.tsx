@@ -17,7 +17,9 @@ const TourFeatures = ({ tourFeatures }: TourFeaturesProps) => {
         </Grid>
         <Grid item md={8}>
           <Typography className={classes.normalText}>
-            {tourFeatures && `${tourFeatures[0]}, ${tourFeatures[1]}`}
+            {tourFeatures
+              ? `${tourFeatures[0]}, ${tourFeatures[1]}`
+              : `Basic Facilities Covered Only`}
           </Typography>
         </Grid>
       </Grid>

@@ -13,8 +13,13 @@ import TourInfo from "../../components/TourInfo";
 import WeatherCard from "../../components/WeatherCard";
 import { AppDispatch, stateType } from "../../store/types";
 import { getWeatherForecast } from "../../store/weather/weatherSlice";
-import { getStoredTourDetail, goToRoute } from "../../utils/helperFunctions";
+import {
+  getCurrentUser,
+  getStoredTourDetail,
+  goToRoute,
+} from "../../utils/helperFunctions";
 import { MOBILE } from "../../styles/devices";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const TourDetail = () => {
   const classes = useStyles();
@@ -24,14 +29,18 @@ const TourDetail = () => {
   const weather = useSelector((state: stateType) => state?.weather);
   const [localTourDetail, setLocalTourDetail] = useState(getStoredTourDetail());
   const locationName = localTourDetail.publicAddress;
+  const { loginWithRedirect } = useAuth0();
 
   useEffect(() => {
     window.scrollTo(0, 0);
     dispatch(getWeatherForecast(locationName));
   }, [locationName]);
 
+  const user = getCurrentUser();
+
   const bookNow = (tourId: string | undefined) => {
-    navigate(goToRoute("/book-tour", tourId));
+    if (user) navigate(goToRoute("/book-tour", tourId));
+    else loginWithRedirect();
   };
 
   return (
