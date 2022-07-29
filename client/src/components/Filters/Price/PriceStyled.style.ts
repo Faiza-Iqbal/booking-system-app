@@ -11,12 +11,13 @@ export const useStyles = makeStyles(() =>
     boxStyled: {
       display: "flex",
       padding: "19px",
-      maxWidth: "200px",
+      maxWidth: "250px",
       width: "100%",
       borderTopRightRadius: "15px",
       background: PRIMARY_LIGHT,
       right: "50px",
       zIndex: 10,
+      minWidth: "250px",
       "& .MuiOutlinedInput-notchedOutline": {
         border: "none",
       },

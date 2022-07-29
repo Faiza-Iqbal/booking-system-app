@@ -4,7 +4,9 @@ import { PRIMARY_LIGHT, SECONDARY_DARK } from "../../styles/colors";
 export const useStyles = makeStyles(() =>
   createStyles({
     secondaryActionButton: {
-      color: SECONDARY_DARK,
+      "&.MuiButton-root": {
+        color: SECONDARY_DARK,
+      },
     },
     buttonStyled: {
       "&.MuiButtonBase-root": {

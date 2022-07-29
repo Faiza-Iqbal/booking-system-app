@@ -6,7 +6,7 @@ import SearchIcon from "@mui/icons-material/Search";
 
 // src
 import Price from "./Price";
-import DatePicker from "./Date";
+import DatePicker from "./DatePicker";
 import Location from "./Location";
 import ActionButton from "../ActionButton";
 import { fetchTours } from "../../store/tours";

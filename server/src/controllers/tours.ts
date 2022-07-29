@@ -1,5 +1,5 @@
-import Tour from "../models/tour";
 import { Request, Response } from "express";
+import Tour from "../models/tour";
 
 export const addTour = async (req: Request, res: Response) => {
   const tour = req.body;
@@ -26,20 +26,11 @@ export const getTours = async (req: Request, res: Response) => {
 
 export const deleteTour = async (req: Request, res: Response) => {
   const { id } = req.params;
+
   try {
     await Tour.findByIdAndRemove(id);
 
     res.json({ message: "Tour deleted successfully!" });
-  } catch (error: any) {
-    res.status(404).json({ message: error.message });
-  }
-};
-
-export const getTourById = async (req: Request, res: Response) => {
-  try {
-    const tours = await Tour.findById(req.params);
-
-    res.status(200).json(tours);
   } catch (error: any) {
     res.status(404).json({ message: error.message });
   }

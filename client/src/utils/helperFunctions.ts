@@ -4,7 +4,7 @@ export const getTourDays = (
   checkin: string | undefined,
   checkout: string | undefined
 ) => {
-  if (!checkin || !checkout) return;
+  if (!checkin || !checkout) return `5`;
 
   const checkInDate = new Date(checkin);
   const checkOutDate = new Date(checkout);

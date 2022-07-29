@@ -93,7 +93,7 @@ const Navbar = () => {
               </MenuItem>
             </Menu>
           </Box>
-          <Grid item lg={1}>
+          <Grid item lg={2}>
             <Link className={`${classes.menuLink} ${classes.logo}`} href="/">
               <img src={LOGO} alt="tour bay logo" />
             </Link>
@@ -101,7 +101,7 @@ const Navbar = () => {
           <Grid
             item
             md={10}
-            lg={11}
+            lg={10}
             sx={{ display: { xs: "none", md: "block" } }}
           >
             <List className={classes.lisStyled}>

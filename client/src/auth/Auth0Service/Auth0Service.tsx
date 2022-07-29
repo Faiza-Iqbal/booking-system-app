@@ -1,3 +1,4 @@
+// lib
 import React from "react";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
@@ -6,7 +7,7 @@ type AuthOPropsType = {
   children: React.ReactNode;
 };
 
-const Auth0ProviderwithNavigate = ({ children }: AuthOPropsType) => {
+const Auth0Service = ({ children }: AuthOPropsType) => {
   const domain = process.env.REACT_APP_AUTH0_DOMAIN || "";
   const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID || "";
 
@@ -28,4 +29,4 @@ const Auth0ProviderwithNavigate = ({ children }: AuthOPropsType) => {
   );
 };
 
-export default Auth0ProviderwithNavigate;
+export default Auth0Service;

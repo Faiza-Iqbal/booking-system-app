@@ -9,13 +9,13 @@ import LandingPage from "./pages/LandingPage";
 import MyTours from "./pages/MyTours";
 import TourDetail from "./pages/TourDetail";
 import UpdateBooking from "./pages/UpdateBooking";
-import Auth0ProviderwithNavigate from "./auth/Auth0ProviderwithNavigate";
+import Auth0Service from "./auth/Auth0Service";
 
 function App() {
   return (
     <>
       <Router>
-        <Auth0ProviderwithNavigate>
+        <Auth0Service>
           <Navbar />
           <Routes>
             <Route path="/" element={<LandingPage />} />
@@ -26,7 +26,7 @@ function App() {
             </Route>
             <Route path="/tour-detail/:id" element={<TourDetail />} />
           </Routes>
-        </Auth0ProviderwithNavigate>
+        </Auth0Service>
       </Router>
     </>
   );

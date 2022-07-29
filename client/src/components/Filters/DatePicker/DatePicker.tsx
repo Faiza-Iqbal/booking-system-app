@@ -5,13 +5,13 @@ import { DateRange } from "react-date-range";
 import DateRangeIcon from "@mui/icons-material/DateRange";
 import { Box, TextField, Typography, useMediaQuery } from "@mui/material";
 import "react-date-range/dist/styles.css";
-// import "react-date-range/dist/theme/default.css";
 
 // src
-import { useStyles } from "./DateStyled.style";
+import { useStyles } from "./DatePickerStyled.style";
 import { getMonthFromDateObj } from "../../../utils/helperFunctions";
-import "./DateStyle.scss";
+import "./DatePickerStyle.scss";
 import { MOBILE } from "../../../styles/devices";
+import { useOutsideClickAlerter } from "./useOutsideClick";
 
 type DatePickerProps = {
   months: number;
@@ -24,12 +24,14 @@ type selectPropsType = {
 };
 
 const DatePicker = (props: any) => {
-  const isMobile = useMediaQuery(MOBILE);
   const classes = useStyles();
   const now = useRef(new Date());
-  const [rangePicker, setRangePicker] = useState(false);
+  const datePickerRef = useRef(null);
+  const isMobile = useMediaQuery(MOBILE);
   const [from, setFrom] = useState(now.current);
+  const [rangePicker, setRangePicker] = useState(false);
   const [to, setTo] = useState(subDays(now.current, -5));
+  useOutsideClickAlerter(datePickerRef, setRangePicker);
 
   const handleSelect = useCallback(
     ({ selection: { startDate, endDate } }: selectPropsType) => {
@@ -75,7 +77,7 @@ const DatePicker = (props: any) => {
         />
       </Box>
       {rangePicker && (
-        <Box className="dateRangeWrap">
+        <Box ref={datePickerRef} className="dateRangeWrap">
           <DateRange
             dateDisplayFormat={"YYYY.MM.dd"}
             moveRangeOnFirstSelection={false}

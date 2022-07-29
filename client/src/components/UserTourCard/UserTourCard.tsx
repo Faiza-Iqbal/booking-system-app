@@ -79,7 +79,7 @@ const UserTourCard = ({ tour }: UserTourCardProp) => {
           </Typography>
           <Typography className={classes.smallTypo}>
             <AccessTimeIcon />
-            {/* {`${getTourDays(tour?.checkin, tour?.checkout)} Days`} */}5 Days
+            {`${getTourDays(tour?.checkin, tour?.checkout)} Days`}
           </Typography>
         </Box>
         {user && actionVisible && (

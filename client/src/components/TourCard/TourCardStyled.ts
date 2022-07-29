@@ -30,6 +30,7 @@ export const useStyles = makeStyles(() =>
       "& .MuiCardActions-root": {
         alignItems: "center",
         justifyContent: "space-between",
+        minHeight: "40px",
       },
     },
 

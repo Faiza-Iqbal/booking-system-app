@@ -3,10 +3,10 @@ import { Box, Typography, Link, Container, useMediaQuery } from "@mui/material";
 import { useDispatch } from "react-redux";
 
 // src
-import { POPULAR_PLACES } from "../../constants/apiConstants";
 import { fetchTours } from "../../store/tours";
 import { AppDispatch } from "../../store/types";
 import { MOBILE } from "../../styles/devices";
+import { POPULAR_PLACES } from "../../constants/apiConstants";
 
 import { useStyle } from "./PopularSearchStyled.style";
 

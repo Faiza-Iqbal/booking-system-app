@@ -11,6 +11,7 @@ export const useStyles = makeStyles(() =>
         margin: "0",
         padding: "0",
         color: PRIMARY_DARK,
+        cursor: "pointer",
       },
     },
 

@@ -27,21 +27,33 @@ import { useStyles } from "./BookingFormStyled.style";
 import { MOBILE } from "../../styles/devices";
 
 const BookingForm = () => {
-  const tour = useSelector((state: stateType) => state?.tourDetails);
   const classes = useStyles();
-  const dispatch = useDispatch<AppDispatch>();
+  const { id } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
   const isMobile = useMediaQuery(MOBILE);
+  const dispatch = useDispatch<AppDispatch>();
+  const booking = useSelector((state: stateType) => state?.booking);
+  const tour = useSelector((state: stateType) => state?.tourDetails);
   const {
     register,
     handleSubmit,
     formState: { errors },
     setValue,
   } = useForm();
-  const navigate = useNavigate();
-  const location = useLocation();
-  const booking = useSelector((state: stateType) => state?.booking);
 
-  const { id } = useParams();
+  const tourToSave = {
+    name: tour?.title,
+    city: tour?.city,
+    description: tour?.listingName,
+    price: tour?.price,
+    startDate: tour?.checkin,
+    endDate: tour?.checkout,
+    facilities: tour?.listingPreviewAmenityNames,
+    images: tour?.images,
+    publicAddress: tour?.publicAddress,
+    id: tour?.id,
+  };
 
   useEffect(() => {
     if (location.pathname.includes("update-tour")) dispatch(getBooking(id));
@@ -60,19 +72,6 @@ const BookingForm = () => {
     ];
     fields.map((field) => setValue(field, booking[field]));
   }
-
-  const tourToSave = {
-    name: tour?.title,
-    city: tour?.city,
-    description: tour?.listingName,
-    price: tour?.price,
-    startDate: tour?.checkin,
-    endDate: tour?.checkout,
-    facilities: tour?.listingPreviewAmenityNames,
-    images: tour?.images,
-    publicAddress: tour?.publicAddress,
-    id: tour?.id,
-  };
 
   const onSubmit = (data: any) => {
     data.tourId = tour.id;

@@ -8,12 +8,12 @@
       "type": "image/x-icon"
     },
     {
-      "src": "tour-logo.png",
+      "src": "assets/tour-logo.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "tour-logo.png",
+      "src": "assets/tour-logo.png",
       "type": "image/png",
       "sizes": "512x512"
     }

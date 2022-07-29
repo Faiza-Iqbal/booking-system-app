@@ -3,7 +3,6 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import bodyParser from "body-parser";
-import { MongoClient } from "mongodb";
 import mongoose, { ConnectOptions } from "mongoose";
 
 // src
@@ -28,12 +27,12 @@ app.listen(port, () => {
 });
 
 const CONNECTION_URL_DB = process.env.CONNECTION_URL || "";
-const client = new MongoClient(CONNECTION_URL_DB);
 
 mongoose
   .connect(CONNECTION_URL_DB, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   } as ConnectOptions)
+
   .then(() => app.listen(() => console.log(`Database connected`)))
   .catch((error) => console.log(error.message));

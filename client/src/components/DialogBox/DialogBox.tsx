@@ -17,7 +17,7 @@ type DialogBoxProp = {
 };
 
 const DialogBox = ({ handleConfirmation, isOpen }: DialogBoxProp) => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const classes = useStyles();
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-export const LOGO = "http://localhost:3000/tour-logo.png";
+export const LOGO = "http://localhost:3000/assets/tour-logo.png";
 export const BANNER_IMG = "http://localhost:3000/assets/banner1.jpg";
 export const BOOK_TOUR_ASSET =
   "http://localhost:3000/assets/cardThumbnail.webp";

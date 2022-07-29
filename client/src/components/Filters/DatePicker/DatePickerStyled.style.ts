@@ -14,6 +14,7 @@ export const useStyles = makeStyles(() =>
       background: PRIMARY_LIGHT,
       zIndex: 12,
       maxWidth: "250px",
+      minWidth: "250px",
 
       "& .MuiOutlinedInput-notchedOutline": {
         border: "none",
