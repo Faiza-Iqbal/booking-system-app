@@ -19,6 +19,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 // src
 import { useStyles } from "./NavbarStyled.style";
 import { removeCurrentUser } from "../../utils/helperFunctions";
+import { LOGO } from "../../constants/staticUrls";
 
 const Navbar = () => {
   const classes = useStyles();
@@ -94,7 +95,7 @@ const Navbar = () => {
           </Box>
           <Grid item lg={1}>
             <Link className={`${classes.menuLink} ${classes.logo}`} href="/">
-              Tour <span>bay</span>
+              <img src={LOGO} alt="tour bay logo" />
             </Link>
           </Grid>
           <Grid

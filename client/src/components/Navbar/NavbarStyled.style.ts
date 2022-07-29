@@ -35,8 +35,9 @@ export const useStyles = makeStyles(() =>
         fontSize: "24px",
         fontFamily: "fantasy",
         fontStyle: "italic",
-        "& span": {
-          color: PRIMARY_DARK,
+        "& img": {
+          width: "180px",
+          marginTop: "10px",
         },
       },
     },
