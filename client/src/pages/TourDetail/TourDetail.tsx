@@ -1,7 +1,8 @@
-import { Box, Container, Typography, useMediaQuery } from "@mui/material";
-import { useEffect } from "react";
+// lib
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Box, Container, Typography, useMediaQuery } from "@mui/material";
 
 // src
 import ActionButton from "../../components/ActionButton";
@@ -12,20 +13,20 @@ import TourInfo from "../../components/TourInfo";
 import WeatherCard from "../../components/WeatherCard";
 import { AppDispatch, stateType } from "../../store/types";
 import { getWeatherForecast } from "../../store/weather/weatherSlice";
-import { mobile } from "../../styles/devices";
-import { goToRoute } from "../../utils/helperFunctions";
+import { getStoredTourDetail, goToRoute } from "../../utils/helperFunctions";
+import { MOBILE } from "../../styles/devices";
 
 const TourDetail = () => {
   const classes = useStyles();
-  const isMobile = useMediaQuery(mobile);
-  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const tourDetail = useSelector((state: stateType) => state?.tourDetails);
+  const isMobile = useMediaQuery(MOBILE);
+  const dispatch = useDispatch<AppDispatch>();
   const weather = useSelector((state: stateType) => state?.weather);
-
-  const locationName = tourDetail.publicAddress;
+  const [localTourDetail, setLocalTourDetail] = useState(getStoredTourDetail());
+  const locationName = localTourDetail.publicAddress;
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     dispatch(getWeatherForecast(locationName));
   }, [locationName]);
 
@@ -35,35 +36,39 @@ const TourDetail = () => {
 
   return (
     <Box className="sectionPadding">
-      <Container className="sectionPadding">
-        <Typography variant="h5" className={classes.titleText}>
-          {tourDetail.publicAddress}
-        </Typography>
-        <TourInfo tourDetail={tourDetail} />
-        <ImageGallery images={tourDetail?.images} />
-        <Typography className={classes.normalText} align="center">
-          {tourDetail.title}
-        </Typography>
-        <Typography variant="h5" className={classes.titleText}>
-          What's included
-        </Typography>
-        <TourFeatures tourFeatures={tourDetail?.listingPreviewAmenityNames} />
-        <Typography variant="h5" className={classes.titleText}>
-          Itinerary Schedule
-        </Typography>
-        <Box className={isMobile ? classes.mobileView : classes.desktopView}>
-          {weather.forecast.forecastday.map((dayObj, index) => (
-            <WeatherCard key={index} dayObj={dayObj} />
-          ))}
-        </Box>
-        <Box>
-          <ActionButton
-            onClick={() => bookNow(tourDetail.id)}
-            className={classes.buttonStyled}
-            label="Book Now"
+      {localTourDetail?.id && (
+        <Container className="sectionPadding">
+          <Typography variant="h5" className={classes.titleText}>
+            {localTourDetail.publicAddress}
+          </Typography>
+          <TourInfo tourDetail={localTourDetail} />
+          <ImageGallery images={localTourDetail?.images} />
+          <Typography className={classes.normalText} align="center">
+            {localTourDetail.title}
+          </Typography>
+          <Typography variant="h5" className={classes.titleText}>
+            What's included
+          </Typography>
+          <TourFeatures
+            tourFeatures={localTourDetail?.listingPreviewAmenityNames}
           />
-        </Box>
-      </Container>
+          <Typography variant="h5" className={classes.titleText}>
+            Itinerary Schedule
+          </Typography>
+          <Box className={isMobile ? classes.mobileView : classes.desktopView}>
+            {weather.forecast.forecastday.map((dayObj, index) => (
+              <WeatherCard key={index} dayObj={dayObj} day={index + 1} />
+            ))}
+          </Box>
+          <Box>
+            <ActionButton
+              onClick={() => bookNow(localTourDetail.id)}
+              className={classes.buttonStyled}
+              label="Book Now"
+            />
+          </Box>
+        </Container>
+      )}
     </Box>
   );
 };

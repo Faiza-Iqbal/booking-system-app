@@ -1,4 +1,5 @@
 // lib
+import { useEffect } from "react";
 import {
   Box,
   Typography,
@@ -14,7 +15,6 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 // src
-import { useStyles } from "./BookingFormStyled.style";
 import SubmitButton from "./SubmitButton";
 import {
   getBooking,
@@ -22,15 +22,15 @@ import {
   updateBooking,
 } from "../../store/booking/bookingSlice";
 import { AppDispatch, stateType } from "../../store/types";
-import { mobile } from "../../styles/devices";
 import { saveTours } from "../../store/tours/toursSlice";
-import { useEffect } from "react";
+import { useStyles } from "./BookingFormStyled.style";
+import { MOBILE } from "../../styles/devices";
 
 const BookingForm = () => {
   const tour = useSelector((state: stateType) => state?.tourDetails);
   const classes = useStyles();
   const dispatch = useDispatch<AppDispatch>();
-  const isMobile = useMediaQuery(mobile);
+  const isMobile = useMediaQuery(MOBILE);
   const {
     register,
     handleSubmit,
@@ -146,9 +146,10 @@ const BookingForm = () => {
               {...register("paymentMethod", { required: "Required" })}
               error={Boolean(errors.paymentMethod)}
               placeholder="Select"
+              defaultValue={""}
             >
-              <MenuItem value="Method 1">Method 1</MenuItem>
-              <MenuItem value="Method 2"> Method 2</MenuItem>
+              <MenuItem value="Credit Card">Credit Card</MenuItem>
+              <MenuItem value="Online Transfer"> Online Transfer</MenuItem>
             </Select>
           </FormControl>
         </Box>

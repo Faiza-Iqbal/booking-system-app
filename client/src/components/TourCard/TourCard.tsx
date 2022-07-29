@@ -1,4 +1,6 @@
 // lib
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import {
   Box,
   Card,
@@ -9,20 +11,13 @@ import {
 } from "@mui/material";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 
 // src
 import { useStyles } from "./TourCardStyled";
-import ActionButton from "../ActionButton";
-import { Tour } from "../../store/tours/types";
-import { getTourDays, goToRoute } from "../../utils/helperFunctions";
+import { AppDispatch } from "../../store/types";
 import { setTourDetails } from "../../store/tourDetails";
 import { TourDetailType } from "../../store/tourDetails/types";
-import { AppDispatch } from "../../store/types";
-import { deleteTour } from "../../store/tours/toursSlice";
-import { useAuth0 } from "@auth0/auth0-react";
-import { useState } from "react";
+import { getTourDays, goToRoute } from "../../utils/helperFunctions";
 
 type TourCardProp = {
   tour: TourDetailType;
@@ -32,8 +27,6 @@ const TourCard = ({ tour }: TourCardProp) => {
   const classes = useStyles();
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-  const { user } = useAuth0();
-  const [actionVisible, setActionVisible] = useState(false);
 
   const goToTourDetail = (tourId: string | undefined) => {
     if (!tourId) return;
@@ -70,7 +63,7 @@ const TourCard = ({ tour }: TourCardProp) => {
           </Typography>
           <Typography className={classes.smallTypo}>
             <AccessTimeIcon />
-            {/* {`${getTourDays(tour?.checkin, tour?.checkout)} Days`} */}5 Days
+            {`${getTourDays(tour?.checkin, tour?.checkout)} Days`}
           </Typography>
         </Box>
       </CardActions>

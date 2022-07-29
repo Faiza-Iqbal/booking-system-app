@@ -1,9 +1,9 @@
 import { createStyles, makeStyles } from "@mui/styles";
 
 import {
-  main,
-  primary_deep_light,
-  primary_light,
+  MAIN,
+  PRIMARY_DEEP_LIGHT,
+  PRIMARY_LIGHT,
 } from "../../../styles/colors";
 
 export const useStyles = makeStyles(() =>
@@ -11,7 +11,7 @@ export const useStyles = makeStyles(() =>
     boxStyled: {
       display: "flex",
       padding: "20px 10px",
-      background: primary_light,
+      background: PRIMARY_LIGHT,
       zIndex: 12,
       maxWidth: "250px",
 
@@ -24,12 +24,12 @@ export const useStyles = makeStyles(() =>
       },
 
       "& .MuiSvgIcon-root": {
-        backgroundColor: primary_deep_light,
+        backgroundColor: PRIMARY_DEEP_LIGHT,
         width: 18,
         height: 20,
         marginTop: 2,
         marginRight: 5,
-        color: main,
+        color: MAIN,
         borderRadius: "50%",
       },
 

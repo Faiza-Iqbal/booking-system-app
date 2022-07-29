@@ -4,6 +4,7 @@ import { Box, Container, Grid, Typography } from "@mui/material";
 // src
 import { useStyles } from "../../components/ActionButton";
 import BookingForm from "../../components/BookingForm";
+import { BOOK_TOUR_ASSET } from "../../constants/staticUrls";
 
 const BookTour = () => {
   const classes = useStyles();
@@ -21,7 +22,7 @@ const BookTour = () => {
           <Box
             component="img"
             alt="Welcome to TourBay"
-            src="http://localhost:3000/assets/cardThumbnail.webp"
+            src={BOOK_TOUR_ASSET}
             className="fullWidth"
             height="100%"
           />

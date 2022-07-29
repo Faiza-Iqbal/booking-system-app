@@ -5,16 +5,16 @@ import { Box, Container, useMediaQuery } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
 // src
-import Location from "./Location";
-import DatePicker from "./Date";
 import Price from "./Price";
-import { mobile, tablet } from "../../styles/devices";
+import DatePicker from "./Date";
+import Location from "./Location";
 import ActionButton from "../ActionButton";
 import { fetchTours } from "../../store/tours";
 import { AppDispatch } from "../../store/types";
 import { placeType } from "../../store/places/types";
 import { FiltersParam } from "../../store/tours/types";
 import { useStyles } from "./FiltersStyled.style";
+import { MOBILE, TABLET } from "../../styles/devices";
 
 type FiltersProp = {
   selectedPlace: placeType;
@@ -28,17 +28,18 @@ type FilterDates = {
 
 const Filters = ({ selectedPlace, setSelectedPlace }: FiltersProp) => {
   const classes = useStyles();
-  const isMobile = useMediaQuery(mobile);
-  const isTablet = useMediaQuery(tablet);
+  const [price, setPrice] = useState("");
+  const isMobile = useMediaQuery(MOBILE);
+  const isTablet = useMediaQuery(TABLET);
   const dispatch = useDispatch<AppDispatch>();
   const [filterDates, setFilterDates] = useState({});
-  const [price, setPrice] = useState("");
 
   const setFormattedDateRange = (startDate: Date, endDate: Date) => {
     const filteredDates = {
       start: startDate.toISOString().split("T")[0],
       end: endDate.toISOString().split("T")[0],
     };
+
     setFilterDates(filteredDates);
   };
 
@@ -48,16 +49,20 @@ const Filters = ({ selectedPlace, setSelectedPlace }: FiltersProp) => {
     dateRange: FilterDates
   ) => {
     const filterParam: FiltersParam = {};
+
     if (place?.id) filterParam.id = place?.id;
+
     if (priceRang) {
       const prices = priceRang.split("-");
       filterParam.priceMin = parseInt(prices[0]);
       if (prices[1] !== "max") filterParam.priceMax = parseInt(prices[1]);
     }
+
     if (dateRange && dateRange.start && dateRange.end) {
       filterParam.checkin = dateRange.start;
       filterParam.checkout = dateRange.end;
     }
+
     dispatch(fetchTours(filterParam));
   };
 

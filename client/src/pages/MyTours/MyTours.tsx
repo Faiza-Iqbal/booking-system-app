@@ -1,25 +1,24 @@
 // lib
-import { Box, Typography, Container, useMediaQuery } from "@mui/material";
-import { useAuth0 } from "@auth0/auth0-react";
-
-// src
-import TourCard from "../../components/TourCard";
-import { useStyles } from "../../components/ActionButton";
-import { mobile } from "../../styles/devices";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Box, Typography, Container, useMediaQuery } from "@mui/material";
+
+// src
+import { useStyles } from "../../components/ActionButton";
+import UserTourCard from "../../components/UserTourCard";
+import NoResultFound from "../../components/NoResultFound";
 import { AppDispatch, stateType } from "../../store/types";
 import { myTours } from "../../store/tours/toursSlice";
-import UserTourCard from "../../components/UserTourCard/UserTourCard";
+import { MOBILE } from "../../styles/devices";
 
 const MyTours = () => {
   const classes = useStyles();
-  const isMobile = useMediaQuery(mobile);
+  const isMobile = useMediaQuery(MOBILE);
   const dispatch = useDispatch<AppDispatch>();
   const userTours = useSelector((state: stateType) => state?.tours);
 
   useEffect(() => {
-    dispatch(myTours("test"));
+    dispatch(myTours());
   }, []);
 
   return (
@@ -29,10 +28,13 @@ const MyTours = () => {
           My Tours
         </Typography>
         <Box className={isMobile ? classes.mobileView : classes.desktopView}>
-          {userTours &&
+          {userTours.length > 0 ? (
             userTours.map((userTour, index) => (
               <UserTourCard key={`${userTour.id}_${index}`} tour={userTour} />
-            ))}
+            ))
+          ) : (
+            <NoResultFound />
+          )}
         </Box>
       </Container>
     </Box>

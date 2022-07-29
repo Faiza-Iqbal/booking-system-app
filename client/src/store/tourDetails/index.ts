@@ -1,2 +1,2 @@
-export { setTourDetails } from "./tourDetailsSlice";
+export { setTourDetails, getTourDetails } from "./tourDetailsSlice";
 export { default } from "./tourDetailsSlice";

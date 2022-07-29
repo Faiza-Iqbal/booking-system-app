@@ -1,6 +1,6 @@
 import { createStyles, makeStyles } from "@mui/styles";
 
-import { primary_dark, primary_deep_light } from "../../styles/colors";
+import { PRIMARY_DARK, PRIMARY_DEEP_LIGHT } from "../../styles/colors";
 
 export const useStyle = makeStyles(() =>
   createStyles({
@@ -14,14 +14,14 @@ export const useStyle = makeStyles(() =>
     },
 
     outlined: {
-      border: `1px solid ${primary_deep_light}`,
+      border: `1px solid ${PRIMARY_DEEP_LIGHT}`,
       borderRadius: "8px",
       padding: "3px 8px",
       marginBottom: "20px",
 
       "& .MuiTypography-root.MuiLink-root": {
         textDecoration: "none",
-        color: primary_dark,
+        color: PRIMARY_DARK,
         cursor: "pointer",
       },
     },

@@ -2,17 +2,17 @@ import { createStyles, makeStyles } from "@mui/styles";
 
 // src
 import {
-  secondary_dark,
-  primary_light,
-  darkslategray,
+  SECONDARY_DARK,
+  PRIMARY_LIGHT,
+  DARKSLATEGRAY,
 } from "../../styles/colors";
 
 export const useStyles = makeStyles(() =>
   createStyles({
     buttonStyled: {
       "&.MuiButtonBase-root": {
-        backgroundColor: secondary_dark,
-        color: primary_light,
+        backgroundColor: SECONDARY_DARK,
+        color: PRIMARY_LIGHT,
         border: "none",
         borderRadius: "4px",
         width: "100%",
@@ -21,14 +21,14 @@ export const useStyles = makeStyles(() =>
         fontWeight: 600,
         letterSpacing: 0.8,
         "&:hover": {
-          backgroundColor: secondary_dark,
+          backgroundColor: SECONDARY_DARK,
         },
       },
     },
 
     normalText: {
       "&.MuiTypography-root": {
-        color: darkslategray,
+        color: DARKSLATEGRAY,
         fontSize: "14px",
       },
     },
@@ -43,7 +43,7 @@ export const useStyles = makeStyles(() =>
     titleText: {
       "&.MuiTypography-root": {
         fontWeight: 600,
-        color: darkslategray,
+        color: DARKSLATEGRAY,
         marginBottom: "20px",
       },
     },

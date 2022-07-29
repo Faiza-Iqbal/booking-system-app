@@ -1,4 +1,6 @@
 import store from ".";
+
+// src
 import { BookingType } from "./booking/types";
 import { placeType } from "./places/types";
 import { TourDetailType } from "./tourDetails/types";

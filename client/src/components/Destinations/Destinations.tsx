@@ -8,11 +8,11 @@ import { useStyles } from "../../components/ActionButton";
 import { placeType } from "../../store/places/types";
 import { stateType } from "../../store/types";
 
-type DestinationsType = {
+type DestinationsProps = {
   selectedPlace: placeType;
 };
 
-const Destinations = ({ selectedPlace }: DestinationsType) => {
+const Destinations = ({ selectedPlace }: DestinationsProps) => {
   const classes = useStyles();
   const tours = useSelector((state: stateType) => state.tours);
 

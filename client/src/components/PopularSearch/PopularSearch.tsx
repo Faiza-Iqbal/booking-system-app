@@ -6,14 +6,14 @@ import { useDispatch } from "react-redux";
 import { POPULAR_PLACES } from "../../constants/apiConstants";
 import { fetchTours } from "../../store/tours";
 import { AppDispatch } from "../../store/types";
-import { mobile } from "../../styles/devices";
+import { MOBILE } from "../../styles/devices";
 
 import { useStyle } from "./PopularSearchStyled.style";
 
 const PopularSearch = () => {
   const classes = useStyle();
   const dispatch = useDispatch<AppDispatch>();
-  const isMobile = useMediaQuery(mobile);
+  const isMobile = useMediaQuery(MOBILE);
 
   const popularPlaces = POPULAR_PLACES;
 

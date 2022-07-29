@@ -1,4 +1,3 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import { Box, Container } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -16,7 +15,6 @@ import { AppDispatch } from "../../store/types";
 const LandingPage = () => {
   const [selectedPlace, setSelectedPlace] = useState<placeType>(null);
   const dispatch = useDispatch<AppDispatch>();
-  const { user } = useAuth0();
 
   // useEffect(() => {
   //   dispatch(fetchTours({ id: defaultToursId }));

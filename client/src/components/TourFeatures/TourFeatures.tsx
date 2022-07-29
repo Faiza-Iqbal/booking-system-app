@@ -2,11 +2,11 @@ import { Box, Grid, Typography } from "@mui/material";
 
 import { useStyles } from "../../components/ActionButton";
 
-type TourFeaturesType = {
+type TourFeaturesProps = {
   tourFeatures: string[] | undefined;
 };
 
-const TourFeatures = ({ tourFeatures }: TourFeaturesType) => {
+const TourFeatures = ({ tourFeatures }: TourFeaturesProps) => {
   const classes = useStyles();
 
   return (

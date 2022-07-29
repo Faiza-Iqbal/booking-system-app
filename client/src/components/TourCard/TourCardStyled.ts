@@ -1,10 +1,10 @@
 import { createStyles, makeStyles } from "@mui/styles";
 
 import {
-  primary_deep_light,
-  main,
-  secondary_dark,
-  primary_light,
+  PRIMARY_DEEP_LIGHT,
+  MAIN,
+  SECONDARY_DARK,
+  PRIMARY_LIGHT,
 } from "../../styles/colors";
 
 export const useStyles = makeStyles(() =>
@@ -32,25 +32,27 @@ export const useStyles = makeStyles(() =>
         justifyContent: "space-between",
       },
     },
+
     innerCardBox: {
       width: "120px",
       display: "flex",
       justifyContent: "space-between",
       alignItems: "center",
     },
+
     smallTypo: {
       "&.MuiTypography-root": {
         display: "flex",
         alignItems: "center",
         fontSize: 12,
-        color: main,
+        color: MAIN,
       },
 
       "& .MuiSvgIcon-root": {
-        backgroundColor: primary_deep_light,
+        backgroundColor: PRIMARY_DEEP_LIGHT,
         width: 15,
         height: 15,
-        color: main,
+        color: MAIN,
         borderRadius: "50%",
       },
     },
@@ -62,15 +64,17 @@ export const useStyles = makeStyles(() =>
       maxWidth: 400,
       width: "100%",
     },
+
     cardMedia: {
       "&.MuiCardMedia-root": {
         height: 140,
       },
     },
+
     buttonStyled: {
       "&.MuiButtonBase-root": {
-        backgroundColor: secondary_dark,
-        color: primary_light,
+        backgroundColor: SECONDARY_DARK,
+        color: PRIMARY_LIGHT,
         border: "none",
         borderRadius: "4px",
         padding: "4px",
@@ -78,7 +82,7 @@ export const useStyles = makeStyles(() =>
         letterSpacing: 0.8,
         marginRight: 5,
         "&:hover": {
-          backgroundColor: secondary_dark,
+          backgroundColor: SECONDARY_DARK,
         },
       },
     },

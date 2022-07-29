@@ -6,12 +6,13 @@ import AddLocationIcon from "@mui/icons-material/AddLocation";
 
 import { useStyles } from "../TourCard";
 import { TourDetailType } from "../../store/tourDetails/types";
+import { getTourDays } from "../../utils/helperFunctions";
 
-type TourInfo = {
+type TourInfoProps = {
   tourDetail: TourDetailType;
 };
 
-const TourInfo = ({ tourDetail }: TourInfo) => {
+const TourInfo = ({ tourDetail }: TourInfoProps) => {
   const classes = useStyles();
 
   return (
@@ -25,7 +26,8 @@ const TourInfo = ({ tourDetail }: TourInfo) => {
         {tourDetail.price}
       </Typography>
       <Typography className={classes.smallTypo}>
-        <AccessTimeIcon />1 day
+        <AccessTimeIcon />
+        {`${getTourDays(tourDetail?.checkin, tourDetail?.checkout)} Days`}
       </Typography>
     </Box>
   );

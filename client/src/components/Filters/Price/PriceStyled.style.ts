@@ -1,9 +1,9 @@
 import { createStyles, makeStyles } from "@mui/styles";
 
 import {
-  main,
-  primary_deep_light,
-  primary_light,
+  MAIN,
+  PRIMARY_DEEP_LIGHT,
+  PRIMARY_LIGHT,
 } from "../../../styles/colors";
 
 export const useStyles = makeStyles(() =>
@@ -14,7 +14,7 @@ export const useStyles = makeStyles(() =>
       maxWidth: "200px",
       width: "100%",
       borderTopRightRadius: "15px",
-      background: primary_light,
+      background: PRIMARY_LIGHT,
       right: "50px",
       zIndex: 10,
       "& .MuiOutlinedInput-notchedOutline": {
@@ -22,12 +22,12 @@ export const useStyles = makeStyles(() =>
       },
 
       "& .MuiSvgIcon-root": {
-        backgroundColor: primary_deep_light,
+        backgroundColor: PRIMARY_DEEP_LIGHT,
         width: 18,
         height: 20,
         marginTop: 2,
         marginRight: 5,
-        color: main,
+        color: MAIN,
         borderRadius: "50%",
       },
     },
@@ -40,19 +40,19 @@ export const useStyles = makeStyles(() =>
       maxWidth: "200px",
       width: "100%",
       borderTopRightRadius: "15px",
-      background: primary_light,
+      background: PRIMARY_LIGHT,
       right: "0px",
       zIndex: 10,
       "& .MuiOutlinedInput-notchedOutline": {
         border: "none",
       },
       "& .MuiSvgIcon-root": {
-        backgroundColor: primary_deep_light,
+        backgroundColor: PRIMARY_DEEP_LIGHT,
         width: 18,
         height: 20,
         marginTop: 2,
         marginRight: 5,
-        color: main,
+        color: MAIN,
         borderRadius: "50%",
       },
     },

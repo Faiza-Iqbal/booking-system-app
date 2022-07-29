@@ -1,13 +1,13 @@
 import { makeStyles, createStyles } from "@mui/styles";
 
-import { secondary_dark, primary_light } from "../../../styles/colors";
+import { SECONDARY_DARK, PRIMARY_LIGHT } from "../../../styles/colors";
 
 export const useStyles = makeStyles(() =>
   createStyles({
     buttonStyled: {
       "&.MuiButton-root": {
-        backgroundColor: secondary_dark,
-        color: primary_light,
+        backgroundColor: SECONDARY_DARK,
+        color: PRIMARY_LIGHT,
         border: "none",
         borderRadius: "4px",
         width: "100%",
@@ -16,7 +16,7 @@ export const useStyles = makeStyles(() =>
         fontWeight: 600,
         letterSpacing: 0.8,
         "&:hover": {
-          backgroundColor: secondary_dark,
+          backgroundColor: SECONDARY_DARK,
         },
       },
     },

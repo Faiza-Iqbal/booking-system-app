@@ -6,6 +6,7 @@ export type Tour = {
   title: string;
   publicAddress: string;
   id: string;
+  _id?: string;
 };
 
 export type FiltersParam = {

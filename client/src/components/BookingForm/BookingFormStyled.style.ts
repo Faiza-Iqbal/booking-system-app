@@ -1,5 +1,6 @@
 import { createStyles, makeStyles } from "@mui/styles";
-import { darkslategray } from "../../styles/colors";
+
+import { DARKSLATEGRAY } from "../../styles/colors";
 
 export const useStyles = makeStyles(() =>
   createStyles({
@@ -15,7 +16,7 @@ export const useStyles = makeStyles(() =>
       "& .MuiTypography-root": {
         marginTop: "10px",
         fontSize: "14px",
-        color: darkslategray,
+        color: DARKSLATEGRAY,
       },
     },
     mobileFormView: {
@@ -29,7 +30,7 @@ export const useStyles = makeStyles(() =>
       "& .MuiTypography-root": {
         marginTop: "10px",
         fontSize: "14px",
-        color: darkslategray,
+        color: DARKSLATEGRAY,
       },
     },
     mandatory: {

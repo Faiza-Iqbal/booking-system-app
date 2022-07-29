@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 
+// src
 import places from "./places";
 import tourDetails from "./tourDetails";
 import booking from "./booking";

@@ -1,5 +1,6 @@
 import { createStyles, makeStyles } from "@mui/styles";
-import { primary_dark, secondary_dark } from "../../styles/colors";
+
+import { PRIMARY_DARK, SECONDARY_DARK } from "../../styles/colors";
 
 export const useStyles = makeStyles(() =>
   createStyles({
@@ -9,7 +10,7 @@ export const useStyles = makeStyles(() =>
         fontWeight: "bold",
         margin: "0",
         padding: "0",
-        color: primary_dark,
+        color: PRIMARY_DARK,
       },
     },
 
@@ -30,12 +31,12 @@ export const useStyles = makeStyles(() =>
 
     logo: {
       "&.MuiTypography-root.MuiLink-root": {
-        color: secondary_dark,
+        color: SECONDARY_DARK,
         fontSize: "24px",
         fontFamily: "fantasy",
         fontStyle: "italic",
         "& span": {
-          color: primary_dark,
+          color: PRIMARY_DARK,
         },
       },
     },

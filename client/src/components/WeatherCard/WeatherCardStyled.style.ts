@@ -1,6 +1,6 @@
 import { createStyles, makeStyles } from "@mui/styles";
 
-import { darkslategray } from "../../styles/colors";
+import { DARKSLATEGRAY } from "../../styles/colors";
 
 export const useStyles = makeStyles(() =>
   createStyles({
@@ -14,15 +14,20 @@ export const useStyles = makeStyles(() =>
       "&.MuiTypography-root": {
         fontSize: "14px",
         fontWeight: 600,
-        color: darkslategray,
+        color: DARKSLATEGRAY,
       },
     },
 
     smallText: {
       "&.MuiListItem-root": {
         fontSize: "12px",
-        color: darkslategray,
+        color: DARKSLATEGRAY,
       },
+    },
+    avatarWrapper: {
+      display: "flex",
+      flexDirection: "row-reverse",
+      alignItems: "center",
     },
   })
 );

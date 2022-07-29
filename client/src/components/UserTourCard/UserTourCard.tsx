@@ -1,4 +1,6 @@
 // lib
+import { useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 import {
   Box,
   Card,
@@ -13,17 +15,13 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 // src
-import { useStyles } from "../TourCard/TourCardStyled";
 import ActionButton from "../ActionButton";
-import { Tour } from "../../store/tours/types";
+import DialogBox from "../DialogBox";
+import { useStyles } from "../TourCard/TourCardStyled";
 import { getTourDays, goToRoute } from "../../utils/helperFunctions";
-import { setTourDetails } from "../../store/tourDetails";
 import { TourDetailType } from "../../store/tourDetails/types";
 import { AppDispatch } from "../../store/types";
 import { deleteTour } from "../../store/tours/toursSlice";
-import { useAuth0 } from "@auth0/auth0-react";
-import { useState } from "react";
-import DialogBox from "../DialogBox";
 
 type UserTourCardProp = {
   tour: TourDetailType;
@@ -31,22 +29,23 @@ type UserTourCardProp = {
 
 const UserTourCard = ({ tour }: UserTourCardProp) => {
   const classes = useStyles();
-  const dispatch = useDispatch<AppDispatch>();
   const { user } = useAuth0();
+  const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
   const [actionVisible, setActionVisible] = useState(false);
   const [confirmationDialog, setConfirmationDialog] = useState(false);
-  const navigate = useNavigate();
 
   const deleteMyTour = (id: string | undefined) => {
-    console.log("deleteeeeee");
     setConfirmationDialog(false);
+
     if (!id) return;
-    console.log("deleteeeeee 2");
+
     dispatch(deleteTour(id));
   };
 
   const updateMyBooking = (id: string | undefined) => {
     if (!id) return;
+
     navigate(goToRoute("/update-tour", id));
   };
 
@@ -102,7 +101,7 @@ const UserTourCard = ({ tour }: UserTourCardProp) => {
       </CardActions>
 
       <DialogBox
-        handleConfirmation={() => deleteMyTour(tour?.id)}
+        handleConfirmation={() => deleteMyTour(tour?._id)}
         isOpen={confirmationDialog}
       />
     </Card>

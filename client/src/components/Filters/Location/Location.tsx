@@ -15,7 +15,7 @@ import { useStyles } from "./LocationStyled.style";
 import { fetchPlaces } from "../../../store/places/placesSlice";
 import { AppDispatch, stateType } from "../../../store/types";
 import { placeType } from "../../../store/places/types";
-import { mobile } from "../../../styles/devices";
+import { MOBILE } from "../../../styles/devices";
 
 type LocationProps = {
   setSelectedPlace: (placeType: placeType) => void;
@@ -25,7 +25,7 @@ const Location = ({ setSelectedPlace }: LocationProps) => {
   const classes = useStyles();
   const dispatch = useDispatch<AppDispatch>();
   const places: placeType[] = useSelector((state: stateType) => state?.places);
-  const isMobile = useMediaQuery(mobile);
+  const isMobile = useMediaQuery(MOBILE);
 
   const getOptionLabel = (place: placeType) =>
     place ? place.location_name : "";
@@ -53,6 +53,7 @@ const Location = ({ setSelectedPlace }: LocationProps) => {
         <Typography>Location</Typography>
         <Autocomplete
           options={places}
+          noOptionsText="Start typing..."
           onInputChange={handleLocationChange}
           onChange={(_, place) => onChange(place)}
           getOptionLabel={getOptionLabel}

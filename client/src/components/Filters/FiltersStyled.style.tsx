@@ -1,6 +1,6 @@
 import { createStyles, makeStyles } from "@mui/styles";
 
-import { box_shadow, primary_light, secondary_dark } from "../../styles/colors";
+import { BOX_SHADOW, PRIMARY_LIGHT, SECONDARY_DARK } from "../../styles/colors";
 
 export const useStyles = makeStyles(() =>
   createStyles({
@@ -10,32 +10,35 @@ export const useStyles = makeStyles(() =>
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-      boxShadow: box_shadow,
+      boxShadow: BOX_SHADOW,
       position: "relative",
       width: "75%",
-      background: primary_light,
+      background: PRIMARY_LIGHT,
       minHeight: "120px",
     },
+
     searchButton: {
       "&.MuiButton-root": {
         right: 0,
-        color: primary_light,
-        background: secondary_dark,
+        color: PRIMARY_LIGHT,
+        background: SECONDARY_DARK,
         height: "100%",
         top: 0,
         zIndex: 11,
         width: "100%",
         "&:hover": {
-          background: secondary_dark,
+          background: SECONDARY_DARK,
         },
       },
     },
+
     positionedButton: {
       "&.MuiButton-root": {
         position: "absolute",
         width: "auto",
       },
     },
+
     absoluteContainer: {
       "&.MuiContainer-root": {
         display: "flex",
@@ -51,18 +54,19 @@ export const useStyles = makeStyles(() =>
       justifyContent: "center",
       alignItems: "center",
       marginTop: "0px",
-      boxShadow: box_shadow,
+      boxShadow: BOX_SHADOW,
     },
+
     tabletAligned: {
       borderTopLeftRadius: "10px",
       borderTopRightRadius: "10px",
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-      boxShadow: box_shadow,
+      boxShadow: BOX_SHADOW,
       position: "relative",
       width: "95%",
-      background: primary_light,
+      background: PRIMARY_LIGHT,
       minHeight: "120px",
     },
   })

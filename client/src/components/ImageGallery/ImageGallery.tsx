@@ -2,11 +2,11 @@ import { ImageList, ImageListItem } from "@mui/material";
 
 import { useStyles } from "./ImageGalleryStyled.style";
 
-type ImageGalleryType = {
+type ImageGalleryProps = {
   images: string[];
 };
 
-const ImageGallery = ({ images }: ImageGalleryType) => {
+const ImageGallery = ({ images }: ImageGalleryProps) => {
   const classes = useStyles();
 
   return (

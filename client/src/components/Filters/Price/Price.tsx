@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 
 import { useStyles } from "./PriceStyled.style";
-import { mobile, tablet } from "../../../styles/devices";
+import { MOBILE, TABLET } from "../../../styles/devices";
 
 type PriceProp = {
   price: string;
@@ -20,8 +20,8 @@ type PriceProp = {
 
 const Price = ({ price, setPrice }: PriceProp) => {
   const classes = useStyles();
-  const isMobile = useMediaQuery(mobile);
-  const isTablet = useMediaQuery(tablet);
+  const isMobile = useMediaQuery(MOBILE);
+  const isTablet = useMediaQuery(TABLET);
 
   const handleChange = (event: SelectChangeEvent) => {
     setPrice(event.target.value as string);

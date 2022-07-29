@@ -51,24 +51,20 @@ export const saveTours = createAsyncThunk(
   }
 );
 
-export const myTours = createAsyncThunk(
-  `${SERVER_URL}tours`,
-  async (abc: "test") => {
-    const user = getCurrentUser();
+export const myTours = createAsyncThunk(`${SERVER_URL}tours`, async () => {
+  const user = getCurrentUser();
 
-    const response = await api.get(`${SERVER_URL}tours`, {
-      params: { userEmail: user.email },
-    });
+  const response = await api.get(`${SERVER_URL}tours`, {
+    params: { userEmail: user.email },
+  });
 
-    return response;
-  }
-);
+  return response;
+});
 
 export const deleteTour = createAsyncThunk(
   `${SERVER_URL}delete_tours`,
   async (id: string | undefined) => {
-    const response = await api.delete(`${SERVER_URL}tours/${id}`);
-
+    const response = await api.delete(`${SERVER_URL}tours/${id}`, {});
     return id;
   }
 );
@@ -97,9 +93,7 @@ const toursSlice = createSlice({
     });
 
     builder.addCase(deleteTour.fulfilled, (state, action) => {
-      return state.filter(
-        (tour: TourDetailType) => tour._id !== action.payload
-      );
+      return state.filter((tour: Tour) => tour._id !== action.payload);
     });
   },
 });

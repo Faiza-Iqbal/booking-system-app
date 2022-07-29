@@ -9,6 +9,8 @@ import {
   DialogTitle,
 } from "@mui/material";
 
+import { useStyles } from "./DialogBoxStyled.style";
+
 type DialogBoxProp = {
   handleConfirmation: () => void;
   isOpen: boolean;
@@ -16,6 +18,7 @@ type DialogBoxProp = {
 
 const DialogBox = ({ handleConfirmation, isOpen }: DialogBoxProp) => {
   const [open, setOpen] = useState(true);
+  const classes = useStyles();
 
   useEffect(() => {
     setOpen(isOpen);
@@ -34,8 +37,14 @@ const DialogBox = ({ handleConfirmation, isOpen }: DialogBoxProp) => {
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={() => handleConfirmation} autoFocus>
+        <Button className={classes.secondaryActionButton} onClick={handleClose}>
+          Cancel
+        </Button>
+        <Button
+          className={classes.buttonStyled}
+          onClick={() => handleConfirmation()}
+          autoFocus
+        >
           Delete
         </Button>
       </DialogActions>
