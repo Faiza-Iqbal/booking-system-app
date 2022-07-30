@@ -1,4 +1,4 @@
-*{
+* {
   font-family: Helvetica, sans-serif;
 }
 
@@ -6,25 +6,28 @@ body {
   margin: 0;
 }
 
-.sectionPadding{
+.sectionPadding {
   padding: 60px 0;
 }
 
-.spacing{
-  margin: 30px auto,
+.spacing {
+  margin: 30px auto;
 }
 
-.fullWidth{
+.fullWidth {
   width: 100%;
 }
 
-.border{
+.border {
   border-right: 1px solid lightgrey;
 }
 
-.flexBox{
+.flexBox {
   display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.error {
+  color: red;
 }

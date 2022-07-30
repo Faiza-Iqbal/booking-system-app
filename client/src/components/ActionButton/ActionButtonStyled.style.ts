@@ -63,5 +63,13 @@ export const useStyles = makeStyles(() =>
       paddingBottom: "10px",
       borderBottom: `1px solid ${PRIMARY_DEEP_LIGHT}`,
     },
+    loader: {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      "& .MuiCircularProgress-root": {
+        color: DARKSLATEGRAY,
+      },
+    },
   })
 );

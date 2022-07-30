@@ -10,12 +10,17 @@ import {
   TOURS_END_POINT,
   TOURS_END_POINT_NO_LOCATION,
 } from "../../constants/apiConstants";
-import { FiltersParam, Tour } from "./types";
+import { FiltersParam, Tour, TourStateType } from "./types";
 import { TourDetailType } from "../tourDetails/types";
 import api from "../../utils/api";
 import { getCurrentUser } from "../../utils/helperFunctions";
+import { homedir } from "os";
 
-const initialState: Array<Tour> = [];
+const initialState: TourStateType = {
+  tours: [],
+  status: "idle",
+  error: null,
+};
 
 export const fetchTours = createAsyncThunk(
   `${API_BASE_URL}${TOURS_END_POINT}`,
@@ -76,24 +81,43 @@ const toursSlice = createSlice({
     setTours: (_, action) => action.payload,
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchTours.fulfilled, (_, action) => {
-      return action.payload;
+    builder.addCase(fetchTours.pending, (state, action) => {
+      state.status = "loading";
+    });
+
+    builder.addCase(fetchTours.fulfilled, (state, action) => {
+      state.status = "succeeded";
+      state.tours = action.payload;
+    });
+
+    builder.addCase(fetchTours.rejected, (state, action) => {
+      state.status = "rejected";
+      state.error = action.payload;
     });
 
     builder.addCase(saveTours.fulfilled, (state, action) => {
-      return state;
+      state.status = "succeeded";
     });
 
-    builder.addCase(saveTours.rejected, (_, action) => {
-      console.log("API request failed");
+    builder.addCase(saveTours.rejected, (state, action) => {
+      state.status = "rejected";
+      state.error = action.payload;
+    });
+
+    builder.addCase(myTours.pending, (state, action) => {
+      state.status = "loading";
     });
 
     builder.addCase(myTours.fulfilled, (state, action) => {
-      return action.payload;
+      state.status = "succeeded";
+      state.tours = action.payload;
     });
 
     builder.addCase(deleteTour.fulfilled, (state, action) => {
-      return state.filter((tour: Tour) => tour._id !== action.payload);
+      state.status = "succeeded";
+      state.tours = state.tours.filter(
+        (tour: Tour) => tour._id !== action.payload
+      );
     });
   },
 });

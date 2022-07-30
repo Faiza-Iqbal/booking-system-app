@@ -16,3 +16,9 @@ export type FiltersParam = {
   checkin?: string;
   checkout?: string;
 };
+
+export type TourStateType = {
+  tours: Tour[];
+  status: string;
+  error: boolean | null;
+};

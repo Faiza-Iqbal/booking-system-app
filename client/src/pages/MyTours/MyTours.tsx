@@ -1,7 +1,13 @@
 // lib
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Typography, Container, useMediaQuery } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Container,
+  useMediaQuery,
+  CircularProgress,
+} from "@mui/material";
 
 // src
 import { useStyles } from "../../components/ActionButton";
@@ -15,8 +21,9 @@ const MyTours = () => {
   const classes = useStyles();
   const isMobile = useMediaQuery(MOBILE);
   const dispatch = useDispatch<AppDispatch>();
-  const userTours = useSelector((state: stateType) => state?.tours);
-
+  const { tours, status, error } = useSelector(
+    (state: stateType) => state?.tours
+  );
   useEffect(() => {
     dispatch(myTours());
   }, []);
@@ -27,15 +34,22 @@ const MyTours = () => {
         <Typography variant="h5" className={classes.titleText}>
           My Tours
         </Typography>
-        <Box className={isMobile ? classes.mobileView : classes.desktopView}>
-          {userTours.length > 0 ? (
-            userTours.map((userTour, index) => (
-              <UserTourCard key={`${userTour.id}_${index}`} tour={userTour} />
-            ))
-          ) : (
-            <NoResultFound />
-          )}
-        </Box>
+        {status === "loading" && (
+          <Box className={classes.loader}>
+            <CircularProgress />
+          </Box>
+        )}
+        {status === "succeeded" && (
+          <Box className={isMobile ? classes.mobileView : classes.desktopView}>
+            {tours && tours.length > 0 ? (
+              tours.map((userTour, index) => (
+                <UserTourCard key={`${userTour.id}_${index}`} tour={userTour} />
+              ))
+            ) : (
+              <NoResultFound />
+            )}
+          </Box>
+        )}
       </Container>
     </Box>
   );

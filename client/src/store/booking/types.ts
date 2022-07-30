@@ -15,3 +15,9 @@ export type UpdateBooking = {
   id?: string;
   data: BookingType;
 };
+
+export type BookingStateType = {
+  booking: BookingType;
+  status: string;
+  error: boolean | null;
+};

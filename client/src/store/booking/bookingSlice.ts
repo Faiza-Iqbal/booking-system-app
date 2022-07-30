@@ -5,16 +5,20 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { SERVER_URL } from "../../constants/apiConstants";
 import api from "../../utils/api";
 import { getCurrentUser } from "../../utils/helperFunctions";
-import { BookingType, UpdateBooking } from "./types";
+import { BookingStateType, BookingType, UpdateBooking } from "./types";
 
-const initialState: BookingType = {
-  name: "",
-  email: "",
-  phoneNo: "",
-  numOfAdults: "",
-  numOfChilds: "",
-  paymentMethod: "",
-  tourId: "",
+const initialState: BookingStateType = {
+  booking: {
+    name: "",
+    email: "",
+    phoneNo: "",
+    numOfAdults: "",
+    numOfChilds: "",
+    paymentMethod: "",
+    tourId: "",
+  },
+  status: "idle",
+  error: null,
 };
 
 const user = getCurrentUser();
@@ -55,11 +59,16 @@ const bookingSlice = createSlice({
     setBooking: (_, action) => action.payload,
   },
   extraReducers: (builder) => {
-    builder.addCase(postBookingForm.fulfilled, (_, action) => {
-      return action.payload;
+    builder.addCase(postBookingForm.pending, (state, action) => {
+      state.status = "loading";
     });
-    builder.addCase(postBookingForm.rejected, (_, action) => {
-      console.log("API request failed");
+    builder.addCase(postBookingForm.fulfilled, (state, action) => {
+      state.status = "succeeded";
+      state.booking = action.payload;
+    });
+    builder.addCase(postBookingForm.rejected, (state, action) => {
+      state.status = "rejected";
+      state.error = action.payload;
     });
     builder.addCase(getBooking.fulfilled, (_, action) => {
       return action.payload;

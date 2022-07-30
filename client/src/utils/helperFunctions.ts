@@ -75,3 +75,9 @@ export const getStoredTourDetail = () => {
 
   return null;
 };
+
+export const getDestinationName = (location: string) => {
+  const splittedLocation = location.split(", ");
+
+  return splittedLocation[splittedLocation.length - 1];
+};

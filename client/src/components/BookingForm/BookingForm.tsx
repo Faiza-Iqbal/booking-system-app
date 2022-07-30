@@ -9,6 +9,7 @@ import {
   FormControl,
   Stack,
   useMediaQuery,
+  Snackbar,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -34,15 +35,19 @@ const BookingForm = () => {
   const navigate = useNavigate();
   const isMobile = useMediaQuery(MOBILE);
   const dispatch = useDispatch<AppDispatch>();
-  const booking = useSelector((state: stateType) => state?.booking);
-  const [loading, setLoading] = useState(false);
+  const { booking, status, error } = useSelector(
+    (state: stateType) => state?.booking
+  );
   const [localTourDetail, setLocalTourDetail] = useState(getStoredTourDetail());
+  const [snackBarOpen, setSnackBarOpen] = useState(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
     setValue,
   } = useForm();
+
+  const hideSnackBar = () => setSnackBarOpen(false);
 
   const tourToSave = {
     name: localTourDetail?.title,
@@ -61,6 +66,16 @@ const BookingForm = () => {
     if (location.pathname.includes("update-tour")) dispatch(getBooking(id));
   }, []);
 
+  useEffect(() => {
+    if (status === "succeeded") {
+      setSnackBarOpen(true);
+      setTimeout(() => {
+        hideSnackBar();
+        navigate("/my-tours");
+      }, 3000);
+    }
+  }, [status]);
+
   if (booking.userEmail) {
     const fields = [
       "name",
@@ -76,8 +91,6 @@ const BookingForm = () => {
   }
 
   const onSubmit = (data: any) => {
-    setLoading(true);
-
     data.tourId = id;
     try {
       if (location.pathname.includes("update-tour"))
@@ -86,15 +99,12 @@ const BookingForm = () => {
         dispatch(postBookingForm(data));
         dispatch(saveTours(tourToSave));
       }
-      navigate("/my-tours");
-      setLoading(false);
-    } catch (error) {
-      setLoading(true);
-    }
+    } catch (error) {}
   };
 
   return (
     <Box className={isMobile ? classes.mobileFormView : classes.formWrapper}>
+      <Snackbar open={snackBarOpen} message="Tour successfully booked!" />
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl fullWidth>
           <Typography>
@@ -160,7 +170,7 @@ const BookingForm = () => {
             </Select>
           </FormControl>
         </Box>
-        <SubmitButton label="Confirm" loading={loading} />
+        <SubmitButton label="Confirm" />
       </form>
     </Box>
   );
