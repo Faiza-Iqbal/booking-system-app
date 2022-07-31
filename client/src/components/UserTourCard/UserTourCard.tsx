@@ -22,6 +22,7 @@ import { getTourDays, goToRoute } from "../../utils/helperFunctions";
 import { TourDetailType } from "../../store/tourDetails/types";
 import { AppDispatch } from "../../store/types";
 import { deleteTour } from "../../store/tours/toursSlice";
+import { getBooking } from "../../store/booking/bookingSlice";
 
 type UserTourCardProp = {
   tour: TourDetailType;
@@ -46,6 +47,7 @@ const UserTourCard = ({ tour }: UserTourCardProp) => {
   const updateMyBooking = (id: string | undefined) => {
     if (!id) return;
 
+    dispatch(getBooking(id));
     navigate(goToRoute("/update-tour", id));
   };
 
@@ -103,6 +105,7 @@ const UserTourCard = ({ tour }: UserTourCardProp) => {
       <DialogBox
         handleConfirmation={() => deleteMyTour(tour?._id)}
         isOpen={confirmationDialog}
+        handleClose={() => setConfirmationDialog(false)}
       />
     </Card>
   );

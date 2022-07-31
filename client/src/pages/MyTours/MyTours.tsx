@@ -1,5 +1,5 @@
 // lib
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Box,
@@ -7,6 +7,7 @@ import {
   Container,
   useMediaQuery,
   CircularProgress,
+  Snackbar,
 } from "@mui/material";
 
 // src
@@ -21,6 +22,8 @@ const MyTours = () => {
   const classes = useStyles();
   const isMobile = useMediaQuery(MOBILE);
   const dispatch = useDispatch<AppDispatch>();
+  const [snackBarOpen, setSnackBarOpen] = useState(false);
+  const hideSnackBar = () => setSnackBarOpen(false);
   const { tours, status, error } = useSelector(
     (state: stateType) => state?.tours
   );
@@ -28,8 +31,18 @@ const MyTours = () => {
     dispatch(myTours());
   }, []);
 
+  useEffect(() => {
+    if (status === "deleted") {
+      setSnackBarOpen(true);
+      setTimeout(() => {
+        hideSnackBar();
+      }, 3000);
+    }
+  }, [status]);
+
   return (
     <Box className="sectionPadding">
+      <Snackbar open={snackBarOpen} message="Tour successfully Deleted" />
       <Container className="sectionPadding">
         <Typography variant="h5" className={classes.titleText}>
           My Tours
@@ -39,7 +52,7 @@ const MyTours = () => {
             <CircularProgress />
           </Box>
         )}
-        {status === "succeeded" && (
+        {status !== "loading" && (
           <Box className={isMobile ? classes.mobileView : classes.desktopView}>
             {tours && tours.length > 0 ? (
               tours.map((userTour, index) => (

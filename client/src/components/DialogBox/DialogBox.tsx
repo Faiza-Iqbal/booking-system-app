@@ -14,22 +14,18 @@ import { useStyles } from "./DialogBoxStyled.style";
 type DialogBoxProp = {
   handleConfirmation: () => void;
   isOpen: boolean;
+  handleClose: () => void;
 };
 
-const DialogBox = ({ handleConfirmation, isOpen }: DialogBoxProp) => {
-  const [open, setOpen] = useState(false);
+const DialogBox = ({
+  handleConfirmation,
+  isOpen,
+  handleClose,
+}: DialogBoxProp) => {
   const classes = useStyles();
 
-  useEffect(() => {
-    setOpen(isOpen);
-  }, [isOpen]);
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   return (
-    <Dialog open={open} onClose={handleClose}>
+    <Dialog open={isOpen}>
       <DialogTitle>Delete Tour</DialogTitle>
       <DialogContent>
         <DialogContentText>

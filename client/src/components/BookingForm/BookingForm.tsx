@@ -13,12 +13,11 @@ import {
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 // src
 import SubmitButton from "./SubmitButton";
 import {
-  getBooking,
   postBookingForm,
   updateBooking,
 } from "../../store/booking/bookingSlice";
@@ -27,6 +26,7 @@ import { saveTours } from "../../store/tours/toursSlice";
 import { useStyles } from "./BookingFormStyled.style";
 import { MOBILE } from "../../styles/devices";
 import { getStoredTourDetail } from "../../utils/helperFunctions";
+import { DataType, FieldsType } from "./types";
 
 const BookingForm = () => {
   const classes = useStyles();
@@ -35,17 +35,16 @@ const BookingForm = () => {
   const navigate = useNavigate();
   const isMobile = useMediaQuery(MOBILE);
   const dispatch = useDispatch<AppDispatch>();
-  const { booking, status, error } = useSelector(
-    (state: stateType) => state?.booking
-  );
+  const { booking, status } = useSelector((state: stateType) => state?.booking);
   const [localTourDetail, setLocalTourDetail] = useState(getStoredTourDetail());
   const [snackBarOpen, setSnackBarOpen] = useState(false);
+  const [snackBarMsg, setSnackBarMsg] = useState("Tour successfully booked!");
   const {
     register,
     handleSubmit,
     formState: { errors },
     setValue,
-  } = useForm();
+  } = useForm<DataType>();
 
   const hideSnackBar = () => setSnackBarOpen(false);
 
@@ -63,10 +62,6 @@ const BookingForm = () => {
   };
 
   useEffect(() => {
-    if (location.pathname.includes("update-tour")) dispatch(getBooking(id));
-  }, []);
-
-  useEffect(() => {
     if (status === "succeeded") {
       setSnackBarOpen(true);
       setTimeout(() => {
@@ -76,8 +71,8 @@ const BookingForm = () => {
     }
   }, [status]);
 
-  if (booking.userEmail) {
-    const fields = [
+  if (booking?.userEmail) {
+    const fields: FieldsType[] = [
       "name",
       "email",
       "phoneNo",
@@ -85,17 +80,17 @@ const BookingForm = () => {
       "numOfChilds",
       "paymentMethod",
       "tourId",
-      "userEmail",
     ];
     fields.map((field) => setValue(field, booking[field]));
   }
 
-  const onSubmit = (data: any) => {
+  const onSubmit: SubmitHandler<DataType> = (data: DataType) => {
     data.tourId = id;
     try {
-      if (location.pathname.includes("update-tour"))
+      if (location.pathname.includes("update-tour")) {
         dispatch(updateBooking({ data, id: booking._id }));
-      else {
+        setSnackBarMsg("Tour successfully updated!");
+      } else {
         dispatch(postBookingForm(data));
         dispatch(saveTours(tourToSave));
       }
@@ -104,7 +99,7 @@ const BookingForm = () => {
 
   return (
     <Box className={isMobile ? classes.mobileFormView : classes.formWrapper}>
-      <Snackbar open={snackBarOpen} message="Tour successfully booked!" />
+      <Snackbar open={snackBarOpen} message={snackBarMsg} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl fullWidth>
           <Typography>
@@ -134,8 +129,10 @@ const BookingForm = () => {
           <TextField
             type="tel"
             {...register("phoneNo", { required: "Required" })}
-            error={Boolean(errors.phone)}
-            helperText={errors.phone ? "Please enter your phone number" : null}
+            error={Boolean(errors.phoneNo)}
+            helperText={
+              errors.phoneNo ? "Please enter your phone number" : null
+            }
           />
         </FormControl>
         <Stack flexDirection="row">

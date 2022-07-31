@@ -3,10 +3,10 @@ export type BookingType = {
   name: string;
   email: string;
   phoneNo: string;
-  numOfAdults: string;
-  numOfChilds: string;
+  numOfAdults?: string;
+  numOfChilds?: string;
   paymentMethod: string;
-  tourId: string | null;
+  tourId?: string | null;
   userEmail?: string;
   [key: string]: any;
 };

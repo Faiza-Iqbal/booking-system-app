@@ -39,7 +39,7 @@ export const getBooking = createAsyncThunk(
       params: { userEmail: user.email, tourId: id },
     });
     if (response.length > 0) return response[0];
-    else return initialState;
+    else return initialState.booking;
   }
 );
 
@@ -70,11 +70,17 @@ const bookingSlice = createSlice({
       state.status = "rejected";
       state.error = action.payload;
     });
-    builder.addCase(getBooking.fulfilled, (_, action) => {
-      return action.payload;
+    builder.addCase(getBooking.pending, (state, action) => {
+      state.status = "retrieved";
+      state.booking = action.payload;
     });
-    builder.addCase(updateBooking.fulfilled, (_, action) => {
-      return action.payload;
+    builder.addCase(getBooking.fulfilled, (state, action) => {
+      state.status = "retrieved";
+      state.booking = action.payload;
+    });
+    builder.addCase(updateBooking.fulfilled, (state, action) => {
+      state.status = "succeeded";
+      state.booking = action.payload;
     });
   },
 });

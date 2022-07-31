@@ -114,7 +114,7 @@ const toursSlice = createSlice({
     });
 
     builder.addCase(deleteTour.fulfilled, (state, action) => {
-      state.status = "succeeded";
+      state.status = "deleted";
       state.tours = state.tours.filter(
         (tour: Tour) => tour._id !== action.payload
       );
