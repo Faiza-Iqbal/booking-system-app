@@ -7,6 +7,7 @@ import booking from "./booking";
 import tours from "./tours";
 import weather from "./weather";
 import user from "./user";
+import snackBar from "./snackBar";
 
 const rootReducers = combineReducers({
   places,
@@ -15,5 +16,6 @@ const rootReducers = combineReducers({
   tours,
   weather,
   user,
+  snackBar,
 });
 export default rootReducers;

@@ -20,13 +20,13 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useStyles } from "./NavbarStyled.style";
 import { LOGO } from "../../constants/staticUrls";
 import { useDispatch, useSelector } from "react-redux";
-import { stateType } from "../../store/types";
+import { StateType } from "../../store/types";
 import { removeUser } from "../../store/user";
 
 const Navbar = () => {
   const classes = useStyles();
   const { loginWithRedirect, logout } = useAuth0();
-  const user = useSelector((state: stateType) => state.user);
+  const user = useSelector((state: StateType) => state.user);
   const dispatch = useDispatch();
 
   const trigger = useScrollTrigger({

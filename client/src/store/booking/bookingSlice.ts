@@ -28,6 +28,7 @@ export const postBookingForm = createAsyncThunk(
   async (formData: BookingType) => {
     formData.userEmail = user.email;
     const response = await api.post(`${SERVER_URL}bookings`, formData);
+
     return response;
   }
 );
@@ -79,7 +80,7 @@ const bookingSlice = createSlice({
       state.booking = action.payload;
     });
     builder.addCase(updateBooking.fulfilled, (state, action) => {
-      state.status = "succeeded";
+      state.status = "updated";
       state.booking = action.payload;
     });
   },

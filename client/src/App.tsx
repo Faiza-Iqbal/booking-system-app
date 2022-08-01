@@ -1,5 +1,5 @@
 // lib
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 // src
 import Navbar from "./components/Navbar";
@@ -13,6 +13,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setUser } from "./store/user";
+import Snack from "./components/Snack";
 
 function App() {
   const { user } = useAuth0();
@@ -36,6 +37,7 @@ function App() {
         </Route>
         <Route path="/tour-detail/:id" element={<TourDetail />} />
       </Routes>
+      <Snack />
     </>
   );
 }

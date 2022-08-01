@@ -1,5 +1,5 @@
 // lib
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Box,
@@ -7,42 +7,41 @@ import {
   Container,
   useMediaQuery,
   CircularProgress,
-  Snackbar,
 } from "@mui/material";
 
 // src
 import { useStyles } from "../../components/ActionButton";
 import UserTourCard from "../../components/UserTourCard";
 import NoResultFound from "../../components/NoResultFound";
-import { AppDispatch, stateType } from "../../store/types";
+import { AppDispatch, StateType } from "../../store/types";
 import { myTours } from "../../store/tours/toursSlice";
 import { MOBILE } from "../../styles/devices";
+import { setSnackBar } from "../../store/snackBar";
 
 const MyTours = () => {
   const classes = useStyles();
   const isMobile = useMediaQuery(MOBILE);
   const dispatch = useDispatch<AppDispatch>();
-  const [snackBarOpen, setSnackBarOpen] = useState(false);
-  const hideSnackBar = () => setSnackBarOpen(false);
-  const { tours, status, error } = useSelector(
-    (state: stateType) => state?.tours
-  );
+
+  const { tours, status } = useSelector((state: StateType) => state?.tours);
+
   useEffect(() => {
     dispatch(myTours());
   }, []);
 
   useEffect(() => {
     if (status === "deleted") {
-      setSnackBarOpen(true);
-      setTimeout(() => {
-        hideSnackBar();
-      }, 3000);
+      dispatch(
+        setSnackBar({
+          message: "Tour successfully Deleted",
+          visible: true,
+        })
+      );
     }
-  }, [status]);
+  }, [status, dispatch]);
 
   return (
     <Box className="sectionPadding">
-      <Snackbar open={snackBarOpen} message="Tour successfully Deleted" />
       <Container className="sectionPadding">
         <Typography variant="h5" className={classes.titleText}>
           My Tours

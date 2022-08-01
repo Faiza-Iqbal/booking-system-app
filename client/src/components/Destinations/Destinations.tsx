@@ -1,13 +1,15 @@
 // lib
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Box, CircularProgress, Typography } from "@mui/material";
-import { useSelector } from "react-redux";
 
 // src
 import TourCard from "../TourCard";
 import { useStyles } from "../../components/ActionButton";
 import { placeType } from "../../store/places/types";
-import { stateType } from "../../store/types";
+import { StateType } from "../../store/types";
 import { getDestinationName } from "../../utils/helperFunctions";
+import { setSnackBar } from "../../store/snackBar";
 
 type DestinationsProps = {
   selectedPlace: placeType;
@@ -15,18 +17,27 @@ type DestinationsProps = {
 
 const Destinations = ({ selectedPlace }: DestinationsProps) => {
   const classes = useStyles();
-  const { tours, status, error } = useSelector(
-    (state: stateType) => state.tours
-  );
+  const dispatch = useDispatch();
+  const { tours, status } = useSelector((state: StateType) => state.tours);
+
+  useEffect(() => {
+    if (status === "rejected")
+      dispatch(
+        setSnackBar({
+          message: "Your request could not be processed at the moment",
+          visible: true,
+        })
+      );
+  }, [status, dispatch]);
 
   return (
     <Box className="sectionPadding">
-      {selectedPlace?.location_name && tours.length ? (
+      {selectedPlace?.location_name || tours?.length > 0 ? (
         <Typography variant="h5" className={classes.titleText}>
-          {`Top Destinations at ${getDestinationName(tours[0].publicAddress)}`}
+          {`Top Destinations at ${getDestinationName(tours[0]?.publicAddress)}`}
         </Typography>
       ) : (
-        tours.length > 0 && (
+        tours?.length > 0 && (
           <Typography variant="h5" className={classes.titleText}>
             {`Top Destinations at Turkey`}
           </Typography>
@@ -41,11 +52,6 @@ const Destinations = ({ selectedPlace }: DestinationsProps) => {
         <Box className="sectionPadding flexBox">
           {tours && tours.map((tour) => <TourCard key={tour.id} tour={tour} />)}
         </Box>
-      )}
-      {status === "rejected" && (
-        <p className="error">
-          Sorry! Could not process your request at the moment.
-        </p>
       )}
     </Box>
   );

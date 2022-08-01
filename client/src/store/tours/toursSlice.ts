@@ -113,6 +113,9 @@ const toursSlice = createSlice({
       state.tours = action.payload;
     });
 
+    builder.addCase(deleteTour.pending, (state, action) => {
+      state.status = "loading";
+    });
     builder.addCase(deleteTour.fulfilled, (state, action) => {
       state.status = "deleted";
       state.tours = state.tours.filter(

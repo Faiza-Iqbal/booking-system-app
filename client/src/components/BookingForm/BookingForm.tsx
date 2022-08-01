@@ -9,7 +9,6 @@ import {
   FormControl,
   Stack,
   useMediaQuery,
-  Snackbar,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -21,12 +20,13 @@ import {
   postBookingForm,
   updateBooking,
 } from "../../store/booking/bookingSlice";
-import { AppDispatch, stateType } from "../../store/types";
+import { AppDispatch, StateType } from "../../store/types";
 import { saveTours } from "../../store/tours/toursSlice";
 import { useStyles } from "./BookingFormStyled.style";
 import { MOBILE } from "../../styles/devices";
 import { getStoredTourDetail } from "../../utils/helperFunctions";
 import { DataType, FieldsType } from "./types";
+import { setSnackBar } from "../../store/snackBar";
 
 const BookingForm = () => {
   const classes = useStyles();
@@ -35,18 +35,14 @@ const BookingForm = () => {
   const navigate = useNavigate();
   const isMobile = useMediaQuery(MOBILE);
   const dispatch = useDispatch<AppDispatch>();
-  const { booking, status } = useSelector((state: stateType) => state?.booking);
+  const { booking, status } = useSelector((state: StateType) => state?.booking);
   const [localTourDetail, setLocalTourDetail] = useState(getStoredTourDetail());
-  const [snackBarOpen, setSnackBarOpen] = useState(false);
-  const [snackBarMsg, setSnackBarMsg] = useState("Tour successfully booked!");
   const {
     register,
     handleSubmit,
     formState: { errors },
     setValue,
   } = useForm<DataType>();
-
-  const hideSnackBar = () => setSnackBarOpen(false);
 
   const tourToSave = {
     name: localTourDetail?.title,
@@ -61,16 +57,6 @@ const BookingForm = () => {
     id: id ? id : localTourDetail?.id,
   };
 
-  useEffect(() => {
-    if (status === "succeeded") {
-      setSnackBarOpen(true);
-      setTimeout(() => {
-        hideSnackBar();
-        navigate("/my-tours");
-      }, 3000);
-    }
-  }, [status]);
-
   if (booking?.userEmail) {
     const fields: FieldsType[] = [
       "name",
@@ -81,25 +67,48 @@ const BookingForm = () => {
       "paymentMethod",
       "tourId",
     ];
-    fields.map((field) => setValue(field, booking[field]));
+    fields.map((field) => {
+      return setValue(field, booking[field]);
+    });
   }
 
   const onSubmit: SubmitHandler<DataType> = (data: DataType) => {
+    console.log("data", data);
     data.tourId = id;
     try {
       if (location.pathname.includes("update-tour")) {
         dispatch(updateBooking({ data, id: booking._id }));
-        setSnackBarMsg("Tour successfully updated!");
+        dispatch(
+          setSnackBar({
+            message: "Tour successfully updated!",
+            visible: true,
+          })
+        );
       } else {
         dispatch(postBookingForm(data));
+        if (status === "succeeded") {
+          dispatch(
+            setSnackBar({
+              message: "Tour successfully booked",
+              visible: true,
+            })
+          );
+        }
         dispatch(saveTours(tourToSave));
       }
-    } catch (error) {}
+      navigate("/my-tours");
+    } catch (error) {
+      dispatch(
+        setSnackBar({
+          message: { error },
+          visible: true,
+        })
+      );
+    }
   };
 
   return (
     <Box className={isMobile ? classes.mobileFormView : classes.formWrapper}>
-      <Snackbar open={snackBarOpen} message={snackBarMsg} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl fullWidth>
           <Typography>
@@ -127,12 +136,12 @@ const BookingForm = () => {
             Phone <span className={classes.mandatory}>*</span>
           </Typography>
           <TextField
+            inputProps={{ pattern: "[0-9]{3}-[0-9]{2}-[0-9]{3}" }}
+            placeholder="123-45-678"
             type="tel"
             {...register("phoneNo", { required: "Required" })}
             error={Boolean(errors.phoneNo)}
-            helperText={
-              errors.phoneNo ? "Please enter your phone number" : null
-            }
+            helperText={errors.phoneNo ? "Invalid Phone Number" : null}
           />
         </FormControl>
         <Stack flexDirection="row">
@@ -160,10 +169,11 @@ const BookingForm = () => {
               {...register("paymentMethod", { required: "Required" })}
               error={Boolean(errors.paymentMethod)}
               placeholder="Select"
-              defaultValue={""}
+              defaultValue=""
+              // options={{ credit: "credit", online: "online" }}
             >
-              <MenuItem value="Credit Card">Credit Card</MenuItem>
-              <MenuItem value="Online Transfer"> Online Transfer</MenuItem>
+              <MenuItem value="creditCard">Credit Card</MenuItem>
+              <MenuItem value="onlineTransfer"> Online Transfer</MenuItem>
             </Select>
           </FormControl>
         </Box>

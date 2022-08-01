@@ -47,7 +47,6 @@ const UserTourCard = ({ tour }: UserTourCardProp) => {
   const updateMyBooking = (id: string | undefined) => {
     if (!id) return;
 
-    dispatch(getBooking(id));
     navigate(goToRoute("/update-tour", id));
   };
 

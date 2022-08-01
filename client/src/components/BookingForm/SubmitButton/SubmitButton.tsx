@@ -1,4 +1,4 @@
-import { Button, CircularProgress } from "@mui/material";
+import { Button } from "@mui/material";
 
 import { useStyles } from "./SubmitButtonStyled.style";
 

@@ -13,7 +13,7 @@ import AddLocationIcon from "@mui/icons-material/AddLocation";
 // src
 import { useStyles } from "./LocationStyled.style";
 import { fetchPlaces } from "../../../store/places/placesSlice";
-import { AppDispatch, stateType } from "../../../store/types";
+import { AppDispatch, StateType } from "../../../store/types";
 import { placeType } from "../../../store/places/types";
 import { MOBILE } from "../../../styles/devices";
 
@@ -24,7 +24,7 @@ type LocationProps = {
 const Location = ({ setSelectedPlace }: LocationProps) => {
   const classes = useStyles();
   const dispatch = useDispatch<AppDispatch>();
-  const places: placeType[] = useSelector((state: stateType) => state?.places);
+  const places: placeType[] = useSelector((state: StateType) => state?.places);
   const isMobile = useMediaQuery(MOBILE);
 
   const getOptionLabel = (place: placeType) =>
@@ -53,6 +53,7 @@ const Location = ({ setSelectedPlace }: LocationProps) => {
         <Typography>Location</Typography>
         <Autocomplete
           options={places}
+          isOptionEqualToValue={(place, value) => place?.id === value?.id}
           noOptionsText="Start typing..."
           onInputChange={handleLocationChange}
           onChange={(_, place) => onChange(place)}

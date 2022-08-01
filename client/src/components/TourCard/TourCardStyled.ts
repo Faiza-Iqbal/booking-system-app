@@ -5,6 +5,7 @@ import {
   MAIN,
   SECONDARY_DARK,
   PRIMARY_LIGHT,
+  BOX_SHADOW,
 } from "../../styles/colors";
 
 export const useStyles = makeStyles(() =>
@@ -19,6 +20,11 @@ export const useStyles = makeStyles(() =>
       borderRadius: 5,
       width: 350,
       marginBottom: 40,
+
+      "&.MuiPaper-root": {
+        boxShadow: BOX_SHADOW,
+        cursor: "default",
+      },
 
       "&:hover": {
         viewDetails: {

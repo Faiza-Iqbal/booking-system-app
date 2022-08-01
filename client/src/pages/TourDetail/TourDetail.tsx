@@ -11,7 +11,7 @@ import ImageGallery from "../../components/ImageGallery";
 import TourFeatures from "../../components/TourFeatures";
 import TourInfo from "../../components/TourInfo";
 import WeatherCard from "../../components/WeatherCard";
-import { AppDispatch, stateType } from "../../store/types";
+import { AppDispatch, StateType } from "../../store/types";
 import { getWeatherForecast } from "../../store/weather/weatherSlice";
 import {
   getCurrentUser,
@@ -26,7 +26,7 @@ const TourDetail = () => {
   const navigate = useNavigate();
   const isMobile = useMediaQuery(MOBILE);
   const dispatch = useDispatch<AppDispatch>();
-  const weather = useSelector((state: stateType) => state?.weather);
+  const weather = useSelector((state: StateType) => state?.weather);
   const [localTourDetail, setLocalTourDetail] = useState(getStoredTourDetail());
   const locationName = localTourDetail.publicAddress;
   const { loginWithRedirect } = useAuth0();
