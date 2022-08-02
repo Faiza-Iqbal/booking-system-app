@@ -33,7 +33,6 @@ const Destinations = ({ selectedPlace }: DestinationsProps) => {
 
   return (
     <Box className="sectionPadding">
-      {status !== "loading" && tours?.length === 0 && <NoResultFound />}
       {selectedPlace?.location_name || tours?.length ? (
         <Typography variant="h5" className={classes.titleText}>
           {`Top Destinations at ${getDestinationName(tours[0]?.publicAddress)}`}
@@ -45,6 +44,7 @@ const Destinations = ({ selectedPlace }: DestinationsProps) => {
           </Typography>
         )
       )}
+      {status !== "loading" && tours?.length === 0 && <NoResultFound />}
       {status === "loading" && (
         <Box className={classes.loader}>
           <CircularProgress />
