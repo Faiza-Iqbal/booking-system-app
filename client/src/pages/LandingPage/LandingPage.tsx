@@ -1,25 +1,25 @@
 // lib
-import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
 import { Box, Container } from "@mui/material";
 
 // src
 import Banner from "../../components/Banner";
-import Destinations from "../../components/Destinations";
 import Filters from "../../components/Filters";
-import PopularSearch from "../../components/PopularSearch";
-import { defaultToursId } from "../../constants/apiConstants";
-import { placeType } from "../../store/places/types";
 import { fetchTours } from "../../store/tours";
 import { AppDispatch } from "../../store/types";
+import { placeType } from "../../store/places/types";
+import Destinations from "../../components/Destinations";
+import PopularSearch from "../../components/PopularSearch";
+import { defaultToursId } from "../../constants/apiConstants";
 
 const LandingPage = () => {
-  const [selectedPlace, setSelectedPlace] = useState<placeType>(null);
   const dispatch = useDispatch<AppDispatch>();
+  const [selectedPlace, setSelectedPlace] = useState<placeType>(null);
 
-  useEffect(() => {
-    dispatch(fetchTours({ id: defaultToursId }));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(fetchTours({ id: defaultToursId }));
+  // }, []);
 
   return (
     <Box>
@@ -35,4 +35,5 @@ const LandingPage = () => {
     </Box>
   );
 };
+
 export default LandingPage;

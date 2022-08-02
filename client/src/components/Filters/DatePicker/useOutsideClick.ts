@@ -15,5 +15,5 @@ export const useOutsideClickAlerter = (
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [ref]);
+  }, [ref, setRangePicker]);
 };

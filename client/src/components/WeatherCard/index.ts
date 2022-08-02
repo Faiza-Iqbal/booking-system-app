@@ -1,2 +1,2 @@
 export { default } from "./WeatherCard";
-export { useStyles } from "./WeatherCardStyled.style";
+export { useStyles } from "./style";

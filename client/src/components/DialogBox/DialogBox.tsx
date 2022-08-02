@@ -9,7 +9,8 @@ import {
   DialogTitle,
 } from "@mui/material";
 
-import { useStyles } from "./DialogBoxStyled.style";
+// styles
+import { useStyles } from "./style";
 
 type DialogBoxProp = {
   handleConfirmation: () => void;

@@ -1,2 +1,2 @@
 export { default } from "./BookingForm";
-export { useStyles } from "./BookingFormStyled.style";
+export { useStyles } from "./style";

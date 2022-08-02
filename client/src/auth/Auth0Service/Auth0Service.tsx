@@ -13,7 +13,7 @@ const Auth0Service = ({ children }: AuthOPropsType) => {
 
   const navigate = useNavigate();
 
-  const onRedirectCallback = (appState: AppState | undefined) => {
+  const onRedirectCallback = (appState?: AppState) => {
     navigate(appState?.returnTo || window.location.pathname);
   };
 

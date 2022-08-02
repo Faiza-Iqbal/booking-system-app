@@ -1,17 +1,19 @@
 // lib
-import { useState, useRef, useCallback, useMemo } from "react";
 import subDays from "date-fns/subDays";
+import "react-date-range/dist/styles.css";
 import { DateRange } from "react-date-range";
 import DateRangeIcon from "@mui/icons-material/DateRange";
+import { useState, useRef, useCallback, useMemo } from "react";
 import { Box, TextField, Typography, useMediaQuery } from "@mui/material";
-import "react-date-range/dist/styles.css";
 
 // src
-import { useStyles } from "./DatePickerStyled.style";
-import { getMonthFromDateObj } from "../../../utils/helperFunctions";
-import "./DatePickerStyle.scss";
 import { MOBILE } from "../../../styles/devices";
 import { useOutsideClickAlerter } from "./useOutsideClick";
+import { getMonthFromDateObj } from "../../../utils/helperFunctions";
+
+// styles
+import "./DatePickerStyle.scss";
+import { useStyles } from "./style";
 
 type DatePickerProps = {
   months: number;
@@ -28,9 +30,11 @@ const DatePicker = (props: any) => {
   const now = useRef(new Date());
   const datePickerRef = useRef(null);
   const isMobile = useMediaQuery(MOBILE);
+
   const [from, setFrom] = useState(now.current);
   const [rangePicker, setRangePicker] = useState(false);
   const [to, setTo] = useState(subDays(now.current, -5));
+
   useOutsideClickAlerter(datePickerRef, setRangePicker);
 
   const handleSelect = useCallback(

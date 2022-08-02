@@ -1,14 +1,15 @@
 // lib
-import { Box, Typography, Link, Container, useMediaQuery } from "@mui/material";
 import { useDispatch } from "react-redux";
+import { Box, Typography, Link, Container, useMediaQuery } from "@mui/material";
 
 // src
 import { fetchTours } from "../../store/tours";
 import { AppDispatch } from "../../store/types";
-import { MOBILE } from "../../styles/devices";
 import { POPULAR_PLACES } from "../../constants/apiConstants";
 
-import { useStyle } from "./PopularSearchStyled.style";
+// styles
+import { useStyle } from "./style";
+import { MOBILE } from "../../styles/devices";
 
 const PopularSearch = () => {
   const classes = useStyle();
@@ -29,10 +30,10 @@ const PopularSearch = () => {
           {popularPlaces.map((place) => (
             <Box
               key={place.id}
-              onClick={() => dispatch(fetchTours({ id: place.id }))}
               className={classes.outlined}
+              onClick={() => dispatch(fetchTours({ id: place.id }))}
             >
-              <Link>{place.location_name}</Link>
+              <Link>{place?.location_name}</Link>
             </Box>
           ))}
         </Box>

@@ -5,11 +5,12 @@ import { Box, CircularProgress, Typography } from "@mui/material";
 
 // src
 import TourCard from "../TourCard";
-import { useStyles } from "../../components/ActionButton";
-import { placeType } from "../../store/places/types";
+import NoResultFound from "../NoResultFound";
 import { StateType } from "../../store/types";
-import { getDestinationName } from "../../utils/helperFunctions";
 import { setSnackBar } from "../../store/snackBar";
+import { placeType } from "../../store/places/types";
+import { useStyles } from "../../components/ActionButton";
+import { getDestinationName } from "../../utils/helperFunctions";
 
 type DestinationsProps = {
   selectedPlace: placeType;
@@ -32,7 +33,8 @@ const Destinations = ({ selectedPlace }: DestinationsProps) => {
 
   return (
     <Box className="sectionPadding">
-      {selectedPlace?.location_name || tours?.length > 0 ? (
+      {status !== "loading" && tours?.length === 0 && <NoResultFound />}
+      {selectedPlace?.location_name || tours?.length ? (
         <Typography variant="h5" className={classes.titleText}>
           {`Top Destinations at ${getDestinationName(tours[0]?.publicAddress)}`}
         </Typography>

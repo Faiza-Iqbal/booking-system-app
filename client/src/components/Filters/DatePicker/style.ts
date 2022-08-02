@@ -1,5 +1,7 @@
+// lib
 import { createStyles, makeStyles } from "@mui/styles";
 
+// src
 import {
   MAIN,
   PRIMARY_DEEP_LIGHT,

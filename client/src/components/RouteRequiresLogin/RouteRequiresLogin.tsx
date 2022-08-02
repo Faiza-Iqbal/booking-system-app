@@ -1,6 +1,7 @@
-// li
+// lib
 import { Navigate, Outlet } from "react-router-dom";
 
+// src
 import { getCurrentUser } from "../../utils/helperFunctions";
 
 const RouteRequiresLogin = () => {

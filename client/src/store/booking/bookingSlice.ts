@@ -2,8 +2,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 // src
-import { SERVER_URL } from "../../constants/apiConstants";
 import api from "../../utils/api";
+import { SERVER_URL } from "../../constants/apiConstants";
 import { getCurrentUser } from "../../utils/helperFunctions";
 import { BookingStateType, BookingType, UpdateBooking } from "./types";
 
@@ -26,7 +26,7 @@ const user = getCurrentUser();
 export const postBookingForm = createAsyncThunk(
   "post_booking",
   async (formData: BookingType) => {
-    formData.userEmail = user.email;
+    formData.userEmail = user?.email;
     const response = await api.post(`${SERVER_URL}bookings`, formData);
 
     return response;
@@ -35,12 +35,12 @@ export const postBookingForm = createAsyncThunk(
 
 export const getBooking = createAsyncThunk(
   "get-booking",
-  async (id: string | undefined) => {
+  async (id?: string) => {
     const response = await api.get(`${SERVER_URL}bookings`, {
-      params: { userEmail: user.email, tourId: id },
+      params: { userEmail: user?.email, tourId: id },
     });
     if (response.length > 0) return response[0];
-    else return initialState.booking;
+    else return initialState?.booking;
   }
 );
 

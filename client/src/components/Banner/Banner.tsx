@@ -3,7 +3,9 @@ import { Box } from "@mui/material";
 
 // src
 import { BANNER_IMG } from "../../constants/staticUrls";
-import { useStyles } from "./BannerStyled.style";
+
+// styles
+import { useStyles } from "./style";
 
 const Banner = () => {
   const classes = useStyles();
@@ -17,4 +19,5 @@ const Banner = () => {
     />
   );
 };
+
 export default Banner;

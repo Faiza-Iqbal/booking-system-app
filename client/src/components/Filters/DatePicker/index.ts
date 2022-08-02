@@ -1,3 +1,3 @@
 export { default } from "./DatePicker";
-export { useStyles } from "./DatePickerStyled.style";
+export { useStyles } from "./style";
 export { useOutsideClickAlerter } from "./useOutsideClick";

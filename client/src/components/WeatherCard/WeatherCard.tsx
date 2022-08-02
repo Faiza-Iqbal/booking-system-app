@@ -12,7 +12,9 @@ import {
 
 // src
 import { WeatherCardProps } from "./types";
-import { useStyles } from "./WeatherCardStyled.style";
+
+// styles
+import { useStyles } from "./style";
 
 const WeatherCard = ({ dayObj, day }: WeatherCardProps) => {
   const classes = useStyles();

@@ -10,13 +10,14 @@ import {
 } from "@mui/material";
 
 // src
-import { useStyles } from "../../components/ActionButton";
-import UserTourCard from "../../components/UserTourCard";
-import NoResultFound from "../../components/NoResultFound";
-import { AppDispatch, StateType } from "../../store/types";
 import { myTours } from "../../store/tours/toursSlice";
+import UserTourCard from "../../components/UserTourCard";
+import { AppDispatch, StateType } from "../../store/types";
+import NoResultFound from "../../components/NoResultFound";
+
+// styles
 import { MOBILE } from "../../styles/devices";
-import { setSnackBar } from "../../store/snackBar";
+import { useStyles } from "../../components/ActionButton";
 
 const MyTours = () => {
   const classes = useStyles();
@@ -28,17 +29,6 @@ const MyTours = () => {
   useEffect(() => {
     dispatch(myTours());
   }, []);
-
-  useEffect(() => {
-    if (status === "deleted") {
-      dispatch(
-        setSnackBar({
-          message: "Tour successfully Deleted",
-          visible: true,
-        })
-      );
-    }
-  }, [status, dispatch]);
 
   return (
     <Box className="sectionPadding">
@@ -53,9 +43,12 @@ const MyTours = () => {
         )}
         {status !== "loading" && (
           <Box className={isMobile ? classes.mobileView : classes.desktopView}>
-            {tours && tours.length > 0 ? (
+            {tours && tours?.length > 0 ? (
               tours.map((userTour, index) => (
-                <UserTourCard key={`${userTour.id}_${index}`} tour={userTour} />
+                <UserTourCard
+                  key={`${userTour?.id}_${index}`}
+                  tour={userTour}
+                />
               ))
             ) : (
               <NoResultFound />

@@ -1,19 +1,19 @@
 // lib
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useAuth0 } from "@auth0/auth0-react";
 import { Routes, Route } from "react-router-dom";
 
 // src
-import Navbar from "./components/Navbar";
-import RouteRequiresLogin from "./components/RouteRequiresLogin";
-import BookTour from "./pages/BookTour";
-import LandingPage from "./pages/LandingPage";
 import MyTours from "./pages/MyTours";
-import TourDetail from "./pages/TourDetail";
-import UpdateBooking from "./pages/UpdateBooking";
-import { useAuth0 } from "@auth0/auth0-react";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { setUser } from "./store/user";
 import Snack from "./components/Snack";
+import { setUser } from "./store/user";
+import BookTour from "./pages/BookTour";
+import Navbar from "./components/Navbar";
+import TourDetail from "./pages/TourDetail";
+import LandingPage from "./pages/LandingPage";
+import UpdateBooking from "./pages/UpdateBooking";
+import RouteRequiresLogin from "./components/RouteRequiresLogin";
 
 function App() {
   const { user } = useAuth0();
@@ -23,7 +23,7 @@ function App() {
     if (user) {
       dispatch(setUser(user));
     }
-  }, [user]);
+  }, [user, dispatch]);
 
   return (
     <>

@@ -15,7 +15,7 @@ const initialState: Array<placeType> = [];
 
 export const fetchPlaces = createAsyncThunk(
   `${API_BASE_URL}${PLACES_END_POINT}`,
-  async (placeName: string | undefined) => {
+  async (placeName?: string) => {
     if (!placeName) return;
     const response = await api.get(`${API_BASE_URL}${PLACES_END_POINT}`, {
       params: { query: placeName },

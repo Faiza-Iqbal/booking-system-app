@@ -1,2 +1,2 @@
 export { default } from "./ActionButton";
-export { useStyles } from "./ActionButtonStyled.style";
+export { useStyles } from "./style";

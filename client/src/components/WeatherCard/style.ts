@@ -1,6 +1,8 @@
+// lib
 import { createStyles, makeStyles } from "@mui/styles";
 
-import { DARKSLATEGRAY } from "../../styles/colors";
+// styles
+import { DARKSLATEGRAY, BOX_SHADOW } from "../../styles/colors";
 
 export const useStyles = makeStyles(() =>
   createStyles({
@@ -8,6 +10,9 @@ export const useStyles = makeStyles(() =>
       borderRadius: "5px",
       maxWidth: "345px",
       minWidth: "300px",
+      "&.MuiPaper-root": {
+        boxShadow: BOX_SHADOW,
+      },
     },
 
     boldText: {

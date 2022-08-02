@@ -11,11 +11,13 @@ import { useDispatch, useSelector } from "react-redux";
 import AddLocationIcon from "@mui/icons-material/AddLocation";
 
 // src
-import { useStyles } from "./LocationStyled.style";
-import { fetchPlaces } from "../../../store/places/placesSlice";
-import { AppDispatch, StateType } from "../../../store/types";
-import { placeType } from "../../../store/places/types";
 import { MOBILE } from "../../../styles/devices";
+import { placeType } from "../../../store/places/types";
+import { AppDispatch, StateType } from "../../../store/types";
+import { fetchPlaces } from "../../../store/places/placesSlice";
+
+// styles
+import { useStyles } from "./style";
 
 type LocationProps = {
   setSelectedPlace: (placeType: placeType) => void;
@@ -23,12 +25,13 @@ type LocationProps = {
 
 const Location = ({ setSelectedPlace }: LocationProps) => {
   const classes = useStyles();
-  const dispatch = useDispatch<AppDispatch>();
-  const places: placeType[] = useSelector((state: StateType) => state?.places);
   const isMobile = useMediaQuery(MOBILE);
+  const dispatch = useDispatch<AppDispatch>();
+
+  const places: placeType[] = useSelector((state: StateType) => state?.places);
 
   const getOptionLabel = (place: placeType) =>
-    place ? place.location_name : "";
+    place ? place?.location_name : "";
 
   const onChange = (place: placeType) => setSelectedPlace(place);
 

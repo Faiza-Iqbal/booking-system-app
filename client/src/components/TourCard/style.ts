@@ -20,10 +20,13 @@ export const useStyles = makeStyles(() =>
       borderRadius: 5,
       width: 350,
       marginBottom: 40,
-
+      "& .MuiCardContent-root": {
+        minHeight: "50px",
+        padding: "10px",
+      },
       "&.MuiPaper-root": {
         boxShadow: BOX_SHADOW,
-        cursor: "default",
+        cursor: "pointer",
       },
 
       "&:hover": {
@@ -37,6 +40,11 @@ export const useStyles = makeStyles(() =>
         alignItems: "center",
         justifyContent: "space-between",
         minHeight: "40px",
+      },
+    },
+    userCard: {
+      "&.MuiPaper-root": {
+        cursor: "default",
       },
     },
 

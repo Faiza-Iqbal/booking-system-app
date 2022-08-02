@@ -1,2 +1,2 @@
 export { default } from "./ImageGallery";
-export {} from "./ImageGalleryStyled.style";
+export {} from "./style";

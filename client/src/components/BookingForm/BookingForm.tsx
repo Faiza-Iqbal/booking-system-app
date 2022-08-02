@@ -11,8 +11,8 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 // src
 import SubmitButton from "./SubmitButton";
@@ -20,22 +20,27 @@ import {
   postBookingForm,
   updateBooking,
 } from "../../store/booking/bookingSlice";
-import { AppDispatch, StateType } from "../../store/types";
-import { saveTours } from "../../store/tours/toursSlice";
-import { useStyles } from "./BookingFormStyled.style";
-import { MOBILE } from "../../styles/devices";
-import { getStoredTourDetail } from "../../utils/helperFunctions";
+
 import { DataType, FieldsType } from "./types";
 import { setSnackBar } from "../../store/snackBar";
+import { saveTours } from "../../store/tours/toursSlice";
+import { AppDispatch, StateType } from "../../store/types";
+import { getStoredTourDetail } from "../../utils/helperFunctions";
+
+// styles
+import { useStyles } from "./style";
+import { MOBILE } from "../../styles/devices";
 
 const BookingForm = () => {
-  const classes = useStyles();
   const { id } = useParams();
+  const classes = useStyles();
   const location = useLocation();
   const navigate = useNavigate();
-  const isMobile = useMediaQuery(MOBILE);
   const dispatch = useDispatch<AppDispatch>();
+
+  const isMobile = useMediaQuery(MOBILE);
   const { booking, status } = useSelector((state: StateType) => state?.booking);
+
   const [localTourDetail, setLocalTourDetail] = useState(getStoredTourDetail());
   const {
     register,
@@ -67,14 +72,15 @@ const BookingForm = () => {
       "paymentMethod",
       "tourId",
     ];
+
     fields.map((field) => {
       return setValue(field, booking[field]);
     });
   }
 
   const onSubmit: SubmitHandler<DataType> = (data: DataType) => {
-    console.log("data", data);
     data.tourId = id;
+
     try {
       if (location.pathname.includes("update-tour")) {
         dispatch(updateBooking({ data, id: booking._id }));
@@ -86,6 +92,7 @@ const BookingForm = () => {
         );
       } else {
         dispatch(postBookingForm(data));
+
         if (status === "succeeded") {
           dispatch(
             setSnackBar({
@@ -136,8 +143,8 @@ const BookingForm = () => {
             Phone <span className={classes.mandatory}>*</span>
           </Typography>
           <TextField
-            inputProps={{ pattern: "[0-9]{3}-[0-9]{2}-[0-9]{3}" }}
-            placeholder="123-45-678"
+            inputProps={{ pattern: "[+]{1}[0-9]{2}[0-9]{3}[0-9]{7}" }}
+            placeholder="+923008524441"
             type="tel"
             {...register("phoneNo", { required: "Required" })}
             error={Boolean(errors.phoneNo)}
@@ -170,7 +177,6 @@ const BookingForm = () => {
               error={Boolean(errors.paymentMethod)}
               placeholder="Select"
               defaultValue=""
-              // options={{ credit: "credit", online: "online" }}
             >
               <MenuItem value="creditCard">Credit Card</MenuItem>
               <MenuItem value="onlineTransfer"> Online Transfer</MenuItem>

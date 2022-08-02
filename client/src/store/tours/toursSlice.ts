@@ -2,6 +2,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 // src
+import api from "../../utils/api";
+
 import {
   API_BASE_URL,
   API_HOST,
@@ -10,11 +12,10 @@ import {
   TOURS_END_POINT,
   TOURS_END_POINT_NO_LOCATION,
 } from "../../constants/apiConstants";
-import { FiltersParam, Tour, TourStateType } from "./types";
+
 import { TourDetailType } from "../tourDetails/types";
-import api from "../../utils/api";
+import { FiltersParam, Tour, TourStateType } from "./types";
 import { getCurrentUser } from "../../utils/helperFunctions";
-import { homedir } from "os";
 
 const initialState: TourStateType = {
   tours: [],
@@ -39,7 +40,9 @@ export const fetchTours = createAsyncThunk(
         "X-RapidAPI-Host": API_HOST,
       },
     });
-    return response.data;
+
+    if (response?.data) return response.data;
+    return [];
   }
 );
 
@@ -48,7 +51,7 @@ export const saveTours = createAsyncThunk(
   async (tour: TourDetailType) => {
     const user = getCurrentUser();
 
-    tour.userEmail = user.email;
+    tour.userEmail = user?.email;
 
     const response = await api.post(`${SERVER_URL}tours`, tour);
 
@@ -60,7 +63,7 @@ export const myTours = createAsyncThunk(`${SERVER_URL}tours`, async () => {
   const user = getCurrentUser();
 
   const response = await api.get(`${SERVER_URL}tours`, {
-    params: { userEmail: user.email },
+    params: { userEmail: user?.email },
   });
 
   return response;
@@ -68,7 +71,7 @@ export const myTours = createAsyncThunk(`${SERVER_URL}tours`, async () => {
 
 export const deleteTour = createAsyncThunk(
   `${SERVER_URL}delete_tours`,
-  async (id: string | undefined) => {
+  async (id?: string) => {
     const response = await api.delete(`${SERVER_URL}tours/${id}`, {});
     return id;
   }

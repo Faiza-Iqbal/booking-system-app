@@ -1,2 +1,3 @@
 export { default } from "./Navbar";
-export { useStyles } from "./NavbarStyled.style";
+export { useStyles } from "./style";
+export { NavMobile } from "./NavMobile";

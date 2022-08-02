@@ -1,2 +1,2 @@
 export { default } from "./Location";
-export { useStyles } from "./LocationStyled.style";
+export { useStyles } from "./style";

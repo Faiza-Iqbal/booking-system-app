@@ -1,8 +1,11 @@
-import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+// lib
 import { Slide, Snackbar } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { clearSnackBar } from "../../store/snackBar";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+
+// src
 import { StateType } from "../../store/types";
+import { clearSnackBar } from "../../store/snackBar";
 
 export default function Snack() {
   const { message, visible } = useSelector(
@@ -17,7 +20,7 @@ export default function Snack() {
 
   return (
     <Snackbar
-      anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+      anchorOrigin={{ vertical: "top", horizontal: "center" }}
       open={visible}
       action={<HighlightOffIcon onClick={onClose} />}
       onClose={onClose}

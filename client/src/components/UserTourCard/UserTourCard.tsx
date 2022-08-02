@@ -1,6 +1,9 @@
 // lib
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useNavigate } from "react-router-dom";
+
 import {
   Box,
   Card,
@@ -9,20 +12,21 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
+
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 
 // src
-import ActionButton from "../ActionButton";
 import DialogBox from "../DialogBox";
-import { useStyles } from "../TourCard/TourCardStyled";
-import { getTourDays, goToRoute } from "../../utils/helperFunctions";
-import { TourDetailType } from "../../store/tourDetails/types";
+import ActionButton from "../ActionButton";
 import { AppDispatch } from "../../store/types";
+import { setSnackBar } from "../../store/snackBar";
 import { deleteTour } from "../../store/tours/toursSlice";
-import { getBooking } from "../../store/booking/bookingSlice";
+import { TourDetailType } from "../../store/tourDetails/types";
+import { getTourDays, goToRoute } from "../../utils/helperFunctions";
+
+// styles
+import { useStyles } from "../TourCard/style";
 
 type UserTourCardProp = {
   tour: TourDetailType;
@@ -36,15 +40,21 @@ const UserTourCard = ({ tour }: UserTourCardProp) => {
   const [actionVisible, setActionVisible] = useState(false);
   const [confirmationDialog, setConfirmationDialog] = useState(false);
 
-  const deleteMyTour = (id: string | undefined) => {
+  const deleteMyTour = (id?: string) => {
     setConfirmationDialog(false);
 
     if (!id) return;
 
     dispatch(deleteTour(id));
+    dispatch(
+      setSnackBar({
+        message: "Tour successfully Deleted",
+        visible: true,
+      })
+    );
   };
 
-  const updateMyBooking = (id: string | undefined) => {
+  const updateMyBooking = (id?: string) => {
     if (!id) return;
 
     navigate(goToRoute("/update-tour", id));
@@ -52,7 +62,7 @@ const UserTourCard = ({ tour }: UserTourCardProp) => {
 
   return (
     <Card
-      className={classes.cardStyled}
+      className={`${classes.cardStyled} ${classes.userCard}`}
       onMouseEnter={() => setActionVisible(true)}
       onMouseLeave={() => setActionVisible(false)}
     >
@@ -61,22 +71,22 @@ const UserTourCard = ({ tour }: UserTourCardProp) => {
         className={classes.cardMedia}
         image={
           tour?.images?.length
-            ? tour.images[0]
+            ? tour?.images[0]
             : "http://localhost:3000/assets/cardThumbnail.webp"
         }
         alt="Tour Info"
       />
       <CardContent>
         <Typography>
-          <b>{tour.publicAddress}</b>
+          <b>{tour?.publicAddress}</b>
         </Typography>
-        <Typography variant="caption"> {tour.title}</Typography>
+        <Typography variant="caption"> {tour?.title}</Typography>
       </CardContent>
       <CardActions>
         <Box className={classes.innerCardBox}>
           <Typography className={classes.smallTypo}>
             <AttachMoneyIcon />
-            {tour.price}
+            {tour?.price}
           </Typography>
           <Typography className={classes.smallTypo}>
             <AccessTimeIcon />
@@ -86,7 +96,7 @@ const UserTourCard = ({ tour }: UserTourCardProp) => {
         {user && actionVisible && (
           <Box>
             <ActionButton
-              onClick={() => updateMyBooking(tour.id)}
+              onClick={() => updateMyBooking(tour?.id)}
               className={classes.buttonStyled}
             >
               update

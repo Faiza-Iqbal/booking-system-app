@@ -1,2 +1,2 @@
 export { default } from "./Price";
-export { useStyles } from "./PriceStyled.style";
+export { useStyles } from "./style";

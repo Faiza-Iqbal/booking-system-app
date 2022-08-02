@@ -1,5 +1,7 @@
+// lib
 import { createStyles, makeStyles } from "@mui/styles";
 
+// styles
 import { DARKSLATEGRAY } from "../../styles/colors";
 
 export const useStyles = makeStyles(() =>

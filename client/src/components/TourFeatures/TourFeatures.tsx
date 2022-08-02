@@ -1,9 +1,11 @@
+// lib
 import { Box, Grid, Typography } from "@mui/material";
 
+// styles
 import { useStyles } from "../../components/ActionButton";
 
 type TourFeaturesProps = {
-  tourFeatures: string[] | undefined;
+  tourFeatures?: string[];
 };
 
 const TourFeatures = ({ tourFeatures }: TourFeaturesProps) => {

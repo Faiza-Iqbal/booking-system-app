@@ -1,8 +1,8 @@
 // lib
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Box, Container, useMediaQuery } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import { Box, Container, useMediaQuery } from "@mui/material";
 
 // src
 import Price from "./Price";
@@ -13,7 +13,9 @@ import { fetchTours } from "../../store/tours";
 import { AppDispatch } from "../../store/types";
 import { placeType } from "../../store/places/types";
 import { FiltersParam } from "../../store/tours/types";
-import { useStyles } from "./FiltersStyled.style";
+
+// styles
+import { useStyles } from "./style";
 import { MOBILE, TABLET } from "../../styles/devices";
 
 type FiltersProp = {
@@ -28,11 +30,13 @@ type FilterDates = {
 
 const Filters = ({ selectedPlace, setSelectedPlace }: FiltersProp) => {
   const classes = useStyles();
+  const dispatch = useDispatch<AppDispatch>();
+
   const [price, setPrice] = useState("");
+  const [filterDates, setFilterDates] = useState({});
+
   const isMobile = useMediaQuery(MOBILE);
   const isTablet = useMediaQuery(TABLET);
-  const dispatch = useDispatch<AppDispatch>();
-  const [filterDates, setFilterDates] = useState({});
 
   const setFormattedDateRange = (startDate: Date, endDate: Date) => {
     const filteredDates = {
@@ -59,8 +63,8 @@ const Filters = ({ selectedPlace, setSelectedPlace }: FiltersProp) => {
     }
 
     if (dateRange && dateRange.start && dateRange.end) {
-      filterParam.checkin = dateRange.start;
-      filterParam.checkout = dateRange.end;
+      filterParam.checkin = dateRange?.start;
+      filterParam.checkout = dateRange?.end;
     }
 
     dispatch(fetchTours(filterParam));

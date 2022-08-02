@@ -1,6 +1,8 @@
+// lib
 import { Button } from "@mui/material";
 
-import { useStyles } from "./SubmitButtonStyled.style";
+// styles
+import { useStyles } from "./style";
 
 type SubmitButtonProps = {
   label: string;

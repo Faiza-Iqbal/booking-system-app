@@ -1,44 +1,55 @@
 // lib
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAuth0 } from "@auth0/auth0-react";
+
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
 import { Box, Container, Typography, useMediaQuery } from "@mui/material";
 
 // src
-import ActionButton from "../../components/ActionButton";
-import { useStyles } from "../../components/ActionButton";
-import ImageGallery from "../../components/ImageGallery";
-import TourFeatures from "../../components/TourFeatures";
+
 import TourInfo from "../../components/TourInfo";
 import WeatherCard from "../../components/WeatherCard";
+
+import ImageGallery from "../../components/ImageGallery";
+import TourFeatures from "../../components/TourFeatures";
+
+import ActionButton from "../../components/ActionButton";
+
 import { AppDispatch, StateType } from "../../store/types";
 import { getWeatherForecast } from "../../store/weather/weatherSlice";
+
 import {
   getCurrentUser,
   getStoredTourDetail,
   goToRoute,
 } from "../../utils/helperFunctions";
+
+// styles
+
 import { MOBILE } from "../../styles/devices";
-import { useAuth0 } from "@auth0/auth0-react";
+import { useStyles } from "../../components/ActionButton";
 
 const TourDetail = () => {
   const classes = useStyles();
   const navigate = useNavigate();
-  const isMobile = useMediaQuery(MOBILE);
+  const { loginWithRedirect } = useAuth0();
   const dispatch = useDispatch<AppDispatch>();
+
+  const isMobile = useMediaQuery(MOBILE);
   const weather = useSelector((state: StateType) => state?.weather);
   const [localTourDetail, setLocalTourDetail] = useState(getStoredTourDetail());
-  const locationName = localTourDetail.publicAddress;
-  const { loginWithRedirect } = useAuth0();
+
+  const user = getCurrentUser();
+  const locationName = localTourDetail?.publicAddress;
 
   useEffect(() => {
     window.scrollTo(0, 0);
     dispatch(getWeatherForecast(locationName));
   }, [locationName]);
 
-  const user = getCurrentUser();
-
-  const bookNow = (tourId: string | undefined) => {
+  const bookNow = (tourId?: string) => {
     if (user) navigate(goToRoute("/book-tour", tourId));
     else loginWithRedirect();
   };
@@ -48,12 +59,12 @@ const TourDetail = () => {
       {localTourDetail?.id && (
         <Container className="sectionPadding">
           <Typography variant="h5" className={classes.titleText}>
-            {localTourDetail.publicAddress}
+            {localTourDetail?.publicAddress}
           </Typography>
           <TourInfo tourDetail={localTourDetail} />
           <ImageGallery images={localTourDetail?.images} />
           <Typography className={classes.normalText} align="center">
-            {localTourDetail.title}
+            {localTourDetail?.title}
           </Typography>
           <Typography variant="h5" className={classes.titleText}>
             What's included
@@ -65,15 +76,15 @@ const TourDetail = () => {
             Itinerary Schedule
           </Typography>
           <Box className={isMobile ? classes.mobileView : classes.desktopView}>
-            {weather.forecast.forecastday.map((dayObj, index) => (
+            {weather?.forecast?.forecastday?.map((dayObj, index) => (
               <WeatherCard key={index} dayObj={dayObj} day={index + 1} />
             ))}
           </Box>
           <Box>
             <ActionButton
-              onClick={() => bookNow(localTourDetail.id)}
-              className={classes.buttonStyled}
               label="Book Now"
+              className={classes.buttonStyled}
+              onClick={() => bookNow(localTourDetail.id)}
             />
           </Box>
         </Container>
@@ -81,4 +92,5 @@ const TourDetail = () => {
     </Box>
   );
 };
+
 export default TourDetail;

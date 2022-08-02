@@ -1,10 +1,10 @@
+// lib
 import { User } from "@auth0/auth0-react";
+
+// src
 import { TourDetailType } from "../store/tourDetails/types";
 
-export const getTourDays = (
-  checkin: string | undefined,
-  checkout: string | undefined
-) => {
+export const getTourDays = (checkin?: string, checkout?: string) => {
   if (!checkin || !checkout) return `5`;
 
   const checkInDate = new Date(checkin);
@@ -77,7 +77,10 @@ export const getStoredTourDetail = () => {
 };
 
 export const getDestinationName = (location: string) => {
-  const splittedLocation = location.split(", ");
+  if (location && location.includes(", ")) {
+    const splittedLocation = location?.split(", ");
+    return splittedLocation[splittedLocation.length - 1];
+  }
 
-  return splittedLocation[splittedLocation.length - 1];
+  return "--";
 };

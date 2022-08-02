@@ -10,7 +10,8 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
-import { useStyles } from "./PriceStyled.style";
+// styles
+import { useStyles } from "./style";
 import { MOBILE, TABLET } from "../../../styles/devices";
 
 type PriceProp = {

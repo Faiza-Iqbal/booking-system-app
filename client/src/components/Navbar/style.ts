@@ -1,5 +1,7 @@
+// lib
 import { createStyles, makeStyles } from "@mui/styles";
 
+// styles
 import { PRIMARY_DARK, SECONDARY_DARK } from "../../styles/colors";
 
 export const useStyles = makeStyles(() =>

@@ -1,6 +1,8 @@
+// lib
 import { ImageList, ImageListItem } from "@mui/material";
 
-import { useStyles } from "./ImageGalleryStyled.style";
+// styles
+import { useStyles } from "./style";
 
 type ImageGalleryProps = {
   images: string[];

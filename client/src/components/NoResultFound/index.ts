@@ -1,2 +1,2 @@
 export { default } from "./NoResultFound";
-export { useStyles } from "./NoResultFoundStyled.style";
+export { useStyles } from "./style";

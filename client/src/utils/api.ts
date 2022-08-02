@@ -28,7 +28,7 @@ export default api;
 const fetchAPIData = async ([method, url, options]: FetchType) => {
   try {
     const response = await axios[method](url, { ...options });
-    return response.data;
+    return response?.data;
   } catch (error) {
     return Promise.reject(error);
   }
