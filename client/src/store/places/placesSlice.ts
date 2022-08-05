@@ -17,11 +17,14 @@ export const fetchPlaces = createAsyncThunk(
   `${API_BASE_URL}${PLACES_END_POINT}`,
   async (placeName?: string) => {
     if (!placeName) return;
-    const response = await api.get(`${API_BASE_URL}${PLACES_END_POINT}`, {
-      params: { query: placeName },
-      headers: {
-        "X-RapidAPI-Key": API_KEY,
-        "X-RapidAPI-Host": API_HOST,
+    const response = await api.get({
+      url: `${API_BASE_URL}${PLACES_END_POINT}`,
+      options: {
+        params: { query: placeName },
+        headers: {
+          "X-RapidAPI-Key": API_KEY,
+          "X-RapidAPI-Host": API_HOST,
+        },
       },
     });
     return response.data;

@@ -1,5 +1,6 @@
 // lib
 import { useEffect } from "react";
+import { If, Then, Else } from "react-if";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Box,
@@ -36,25 +37,29 @@ const MyTours = () => {
         <Typography variant="h5" className={classes.titleText}>
           My Tours
         </Typography>
-        {status === "loading" && (
-          <Box className={classes.loader}>
-            <CircularProgress />
-          </Box>
-        )}
-        {status !== "loading" && (
-          <Box className={isMobile ? classes.mobileView : classes.desktopView}>
-            {tours && tours?.length > 0 ? (
-              tours.map((userTour, index) => (
-                <UserTourCard
-                  key={`${userTour?.id}_${index}`}
-                  tour={userTour}
-                />
-              ))
-            ) : (
-              <NoResultFound />
-            )}
-          </Box>
-        )}
+        <If condition={status === "loading"}>
+          <Then>
+            <Box className={classes.loader}>
+              <CircularProgress />
+            </Box>
+          </Then>
+          <Else>
+            <Box
+              className={isMobile ? classes.mobileView : classes.desktopView}
+            >
+              {tours && tours?.length > 0 ? (
+                tours.map((userTour, index) => (
+                  <UserTourCard
+                    key={`${userTour?.id}_${index}`}
+                    tour={userTour}
+                  />
+                ))
+              ) : (
+                <NoResultFound />
+              )}
+            </Box>
+          </Else>
+        </If>
       </Container>
     </Box>
   );

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
+import { If, Then } from "react-if";
 
 import {
   Box,
@@ -93,22 +94,24 @@ const UserTourCard = ({ tour }: UserTourCardProp) => {
             {`${getTourDays(tour?.checkin, tour?.checkout)} Days`}
           </Typography>
         </Box>
-        {user && actionVisible && (
-          <Box>
-            <ActionButton
-              onClick={() => updateMyBooking(tour?.id)}
-              className={classes.buttonStyled}
-            >
-              update
-            </ActionButton>
-            <ActionButton
-              onClick={() => setConfirmationDialog(true)}
-              className={classes.buttonStyled}
-            >
-              delete
-            </ActionButton>
-          </Box>
-        )}
+        <If condition={user && actionVisible}>
+          <Then>
+            <Box>
+              <ActionButton
+                onClick={() => updateMyBooking(tour?.id)}
+                className={classes.buttonStyled}
+              >
+                update
+              </ActionButton>
+              <ActionButton
+                onClick={() => setConfirmationDialog(true)}
+                className={classes.buttonStyled}
+              >
+                delete
+              </ActionButton>
+            </Box>
+          </Then>
+        </If>
       </CardActions>
 
       <DialogBox

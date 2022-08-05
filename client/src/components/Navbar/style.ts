@@ -48,10 +48,16 @@ export const useStyles = makeStyles(() =>
     lisStyled: {
       "&.MuiList-root": {
         display: "flex",
-        justifyContent: "center",
+        justifyContent: "end",
       },
       "& .MuiListItem-root": {
         width: "15%",
+        justifyContent: "center",
+        borderRight: `1px solid ${SECONDARY_DARK}`,
+
+        "&:last-child": {
+          border: "unset",
+        },
       },
     },
 

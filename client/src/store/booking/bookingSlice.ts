@@ -27,7 +27,10 @@ export const postBookingForm = createAsyncThunk(
   "post_booking",
   async (formData: BookingType) => {
     formData.userEmail = user?.email;
-    const response = await api.post(`${SERVER_URL}bookings`, formData);
+    const response = await api.post({
+      url: `${SERVER_URL}bookings`,
+      options: { formData },
+    });
 
     return response;
   }
@@ -36,8 +39,11 @@ export const postBookingForm = createAsyncThunk(
 export const getBooking = createAsyncThunk(
   "get-booking",
   async (id?: string) => {
-    const response = await api.get(`${SERVER_URL}bookings`, {
-      params: { userEmail: user?.email, tourId: id },
+    const response = await api.get({
+      url: `${SERVER_URL}bookings`,
+      options: {
+        params: { userEmail: user?.email, tourId: id },
+      },
     });
     if (response.length > 0) return response[0];
     else return initialState?.booking;
@@ -47,7 +53,10 @@ export const getBooking = createAsyncThunk(
 export const updateBooking = createAsyncThunk(
   `update_booking`,
   async ({ id, data }: UpdateBooking) => {
-    const response = await api.patch(`${SERVER_URL}bookings/${id}`, data);
+    const response = await api.patch({
+      url: `${SERVER_URL}bookings/${id}`,
+      options: { data },
+    });
 
     return response;
   }

@@ -8,7 +8,7 @@ import { StateType } from "../../store/types";
 import { clearSnackBar } from "../../store/snackBar";
 
 export default function Snack() {
-  const { message, visible } = useSelector(
+  const { message, visible, autoHideDuration } = useSelector(
     (state: StateType) => state.snackBar
   );
 
@@ -24,7 +24,7 @@ export default function Snack() {
       open={visible}
       action={<HighlightOffIcon onClick={onClose} />}
       onClose={onClose}
-      autoHideDuration={3000}
+      autoHideDuration={autoHideDuration}
       TransitionComponent={Slide}
       message={message}
     />

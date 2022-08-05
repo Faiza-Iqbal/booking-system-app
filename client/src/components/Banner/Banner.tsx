@@ -13,7 +13,7 @@ const Banner = () => {
   return (
     <Box
       component="img"
-      className={classes.bannerStyled}
+      className={classes.root}
       alt="Welcome to TourBay"
       src={BANNER_IMG}
     />

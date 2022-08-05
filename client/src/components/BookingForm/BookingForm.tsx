@@ -1,5 +1,5 @@
 // lib
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Box,
   Typography,
@@ -47,7 +47,7 @@ const BookingForm = () => {
     handleSubmit,
     formState: { errors },
     setValue,
-  } = useForm<DataType>();
+  } = useForm<DataType>({ mode: "onBlur" });
 
   const tourToSave = {
     name: localTourDetail?.title,
@@ -122,7 +122,7 @@ const BookingForm = () => {
             Name <span className={classes.mandatory}>*</span>
           </Typography>
           <TextField
-            {...register("name", { required: "Required" })}
+            {...register("name", { required: "Required", maxLength: 5 })}
             error={Boolean(errors.name)}
             helperText={errors.name ? "Please enter your name" : null}
           />

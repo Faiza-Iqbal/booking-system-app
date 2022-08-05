@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import Tour from "../models/tour";
 
 export const addTour = async (req: Request, res: Response) => {
-  const tour = req.body;
+  const tour = req.body.tour;
   const newTour = new Tour(tour);
 
   try {

@@ -1,6 +1,7 @@
 // lib
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { If, Else, Then } from "react-if";
 import SearchIcon from "@mui/icons-material/Search";
 import { Box, Container, useMediaQuery } from "@mui/material";
 
@@ -82,20 +83,21 @@ const Filters = ({ selectedPlace, setSelectedPlace }: FiltersProp) => {
         }
       >
         <Location setSelectedPlace={setSelectedPlace} />
-        {!isMobile && (
-          <DatePicker
-            months={2}
-            direction={"horizontal"}
-            setFormattedDateRange={setFormattedDateRange}
-          />
-        )}
-
-        {isMobile && (
-          <DatePicker
-            months={1}
-            setFormattedDateRange={setFormattedDateRange}
-          />
-        )}
+        <If condition={!isMobile}>
+          <Then>
+            <DatePicker
+              months={2}
+              direction={"horizontal"}
+              setFormattedDateRange={setFormattedDateRange}
+            />
+          </Then>
+          <Else>
+            <DatePicker
+              months={1}
+              setFormattedDateRange={setFormattedDateRange}
+            />
+          </Else>
+        </If>
         <Price setPrice={setPrice} price={price} />
         <Box className="fullWidth">
           <ActionButton

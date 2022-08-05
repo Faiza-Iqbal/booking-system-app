@@ -33,11 +33,14 @@ export const fetchTours = createAsyncThunk(
     if (!filterParam.id)
       tourApi = `${API_BASE_URL}${TOURS_END_POINT_NO_LOCATION}`;
 
-    const response = await api.get(tourApi, {
-      params: filterParam,
-      headers: {
-        "X-RapidAPI-Key": API_KEY,
-        "X-RapidAPI-Host": API_HOST,
+    const response = await api.get({
+      url: tourApi,
+      options: {
+        params: filterParam,
+        headers: {
+          "X-RapidAPI-Key": API_KEY,
+          "X-RapidAPI-Host": API_HOST,
+        },
       },
     });
 
@@ -53,7 +56,10 @@ export const saveTours = createAsyncThunk(
 
     tour.userEmail = user?.email;
 
-    const response = await api.post(`${SERVER_URL}tours`, tour);
+    const response = await api.post({
+      url: `${SERVER_URL}tours`,
+      options: { tour },
+    });
 
     return response;
   }
@@ -62,8 +68,11 @@ export const saveTours = createAsyncThunk(
 export const myTours = createAsyncThunk(`${SERVER_URL}tours`, async () => {
   const user = getCurrentUser();
 
-  const response = await api.get(`${SERVER_URL}tours`, {
-    params: { userEmail: user?.email },
+  const response = await api.get({
+    url: `${SERVER_URL}tours`,
+    options: {
+      params: { userEmail: user?.email },
+    },
   });
 
   return response;
@@ -72,7 +81,10 @@ export const myTours = createAsyncThunk(`${SERVER_URL}tours`, async () => {
 export const deleteTour = createAsyncThunk(
   `${SERVER_URL}delete_tours`,
   async (id?: string) => {
-    const response = await api.delete(`${SERVER_URL}tours/${id}`, {});
+    const response = await api.delete({
+      url: `${SERVER_URL}tours/${id}`,
+      options: {},
+    });
     return id;
   }
 );

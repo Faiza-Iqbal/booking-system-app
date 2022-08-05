@@ -1,5 +1,4 @@
 // lib
-import { useEffect, useState } from "react";
 import {
   Button,
   Dialog,

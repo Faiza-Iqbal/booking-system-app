@@ -7,8 +7,7 @@ import { BOX_SHADOW, PRIMARY_LIGHT, SECONDARY_DARK } from "../../styles/colors";
 export const useStyles = makeStyles(() =>
   createStyles({
     innerWrapper: {
-      borderTopLeftRadius: "10px",
-      borderTopRightRadius: "10px",
+      borderRadius: "10px",
       display: "flex",
       justifyContent: "center",
       alignItems: "center",

@@ -4,6 +4,7 @@ import "react-date-range/dist/styles.css";
 import { DateRange } from "react-date-range";
 import DateRangeIcon from "@mui/icons-material/DateRange";
 import { useState, useRef, useCallback, useMemo } from "react";
+import { Else, If, Then } from "react-if";
 import { Box, TextField, Typography, useMediaQuery } from "@mui/material";
 
 // src
@@ -80,18 +81,20 @@ const DatePicker = (props: any) => {
           value={selectedDateRange}
         />
       </Box>
-      {rangePicker && (
-        <Box ref={datePickerRef} className="dateRangeWrap">
-          <DateRange
-            dateDisplayFormat={"YYYY.MM.dd"}
-            moveRangeOnFirstSelection={false}
-            ranges={ranges}
-            onChange={handleSelect}
-            showDateDisplay={false}
-            {...props}
-          />
-        </Box>
-      )}
+      <If condition={rangePicker}>
+        <Then>
+          <Box ref={datePickerRef} className="dateRangeWrap">
+            <DateRange
+              dateDisplayFormat={"YYYY.MM.dd"}
+              moveRangeOnFirstSelection={false}
+              ranges={ranges}
+              onChange={handleSelect}
+              showDateDisplay={false}
+              {...props}
+            />
+          </Box>
+        </Then>
+      </If>
     </Box>
   );
 };

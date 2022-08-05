@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import Booking from "../models/booking";
 
 export const addBooking = async (req: Request, res: Response) => {
-  const booking = req.body;
+  const booking = req.body.formData;
   const newBooking = new Booking(booking);
 
   try {
@@ -27,7 +27,7 @@ export const getBooking = async (req: Request, res: Response) => {
 
 export const updateBooking = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const booking = req.body;
+  const booking = req.body.data;
 
   try {
     const updatedBooking = await Booking.findByIdAndUpdate(

@@ -1,5 +1,4 @@
 // lib
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -9,15 +8,11 @@ import {
   Grid,
   List,
   ListItem,
-  IconButton,
-  Box,
-  Menu,
-  MenuItem,
   useScrollTrigger,
 } from "@mui/material";
 
 import { useAuth0 } from "@auth0/auth0-react";
-import MenuIcon from "@mui/icons-material/Menu";
+import { If, Else, Then } from "react-if";
 
 // src
 import { removeUser } from "../../store/user";
@@ -39,21 +34,12 @@ const Navbar = () => {
   });
 
   const user = useSelector((state: StateType) => state.user);
-  const [mobileMenu, setMobileMenu] = useState<HTMLElement | null>(null);
-
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setMobileMenu(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setMobileMenu(null);
-  };
 
   const logoutUser = () => {
-    dispatch(removeUser(null));
     logout({
       returnTo: window.location.origin,
     });
+    dispatch(removeUser(null));
   };
 
   return (
@@ -84,21 +70,24 @@ const Navbar = () => {
                 </Link>
               </ListItem>
               <ListItem>
-                {user ? (
-                  <Link
-                    className={classes.menuLink}
-                    onClick={() => logoutUser()}
-                  >
-                    Log out
-                  </Link>
-                ) : (
-                  <Link
-                    className={classes.menuLink}
-                    onClick={() => loginWithRedirect()}
-                  >
-                    Login
-                  </Link>
-                )}
+                <If condition={user?.email}>
+                  <Then>
+                    <Link
+                      className={classes.menuLink}
+                      onClick={() => logoutUser()}
+                    >
+                      Log out
+                    </Link>
+                  </Then>
+                  <Else>
+                    <Link
+                      className={classes.menuLink}
+                      onClick={() => loginWithRedirect()}
+                    >
+                      Login
+                    </Link>
+                  </Else>
+                </If>
               </ListItem>
             </List>
           </Grid>

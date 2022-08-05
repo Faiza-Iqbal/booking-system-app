@@ -1,6 +1,7 @@
 // lib
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import { If, Then } from "react-if";
 
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -56,39 +57,43 @@ const TourDetail = () => {
 
   return (
     <Box className="sectionPadding">
-      {localTourDetail?.id && (
-        <Container className="sectionPadding">
-          <Typography variant="h5" className={classes.titleText}>
-            {localTourDetail?.publicAddress}
-          </Typography>
-          <TourInfo tourDetail={localTourDetail} />
-          <ImageGallery images={localTourDetail?.images} />
-          <Typography className={classes.normalText} align="center">
-            {localTourDetail?.title}
-          </Typography>
-          <Typography variant="h5" className={classes.titleText}>
-            What's included
-          </Typography>
-          <TourFeatures
-            tourFeatures={localTourDetail?.listingPreviewAmenityNames}
-          />
-          <Typography variant="h5" className={classes.titleText}>
-            Itinerary Schedule
-          </Typography>
-          <Box className={isMobile ? classes.mobileView : classes.desktopView}>
-            {weather?.forecast?.forecastday?.map((dayObj, index) => (
-              <WeatherCard key={index} dayObj={dayObj} day={index + 1} />
-            ))}
-          </Box>
-          <Box>
-            <ActionButton
-              label="Book Now"
-              className={classes.buttonStyled}
-              onClick={() => bookNow(localTourDetail.id)}
+      <If condition={localTourDetail?.id}>
+        <Then>
+          <Container className="sectionPadding">
+            <Typography variant="h5" className={classes.titleText}>
+              {localTourDetail?.publicAddress}
+            </Typography>
+            <TourInfo tourDetail={localTourDetail} />
+            <ImageGallery images={localTourDetail?.images} />
+            <Typography className={classes.normalText} align="center">
+              {localTourDetail?.title}
+            </Typography>
+            <Typography variant="h5" className={classes.titleText}>
+              What's included
+            </Typography>
+            <TourFeatures
+              tourFeatures={localTourDetail?.listingPreviewAmenityNames}
             />
-          </Box>
-        </Container>
-      )}
+            <Typography variant="h5" className={classes.titleText}>
+              Itinerary Schedule
+            </Typography>
+            <Box
+              className={isMobile ? classes.mobileView : classes.desktopView}
+            >
+              {weather?.forecast?.forecastday?.map((dayObj, index) => (
+                <WeatherCard key={index} dayObj={dayObj} day={index + 1} />
+              ))}
+            </Box>
+            <Box>
+              <ActionButton
+                label="Book Now"
+                className={classes.buttonStyled}
+                onClick={() => bookNow(localTourDetail.id)}
+              />
+            </Box>
+          </Container>
+        </Then>
+      </If>
     </Box>
   );
 };

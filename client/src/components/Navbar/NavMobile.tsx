@@ -1,6 +1,7 @@
 // lib
 import { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import { If, Else, Then } from "react-if";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useDispatch, useSelector } from "react-redux";
 import { Box, IconButton, Link, Menu, MenuItem } from "@mui/material";
@@ -59,18 +60,21 @@ export const NavMobile = () => {
           </Link>
         </MenuItem>
         <MenuItem>
-          {user ? (
-            <Link className={classes.menuLink} onClick={() => logoutUser()}>
-              Log out
-            </Link>
-          ) : (
-            <Link
-              className={classes.menuLink}
-              onClick={() => loginWithRedirect()}
-            >
-              Login
-            </Link>
-          )}
+          <If condition={user?.email}>
+            <Then>
+              <Link className={classes.menuLink} onClick={() => logoutUser()}>
+                Log out
+              </Link>
+            </Then>
+            <Else>
+              <Link
+                className={classes.menuLink}
+                onClick={() => loginWithRedirect()}
+              >
+                Login
+              </Link>
+            </Else>
+          </If>
         </MenuItem>
       </Menu>
     </Box>

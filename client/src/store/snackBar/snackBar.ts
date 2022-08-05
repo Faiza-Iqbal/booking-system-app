@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   message: "",
   visible: false,
+  autoHideDuration: 2000,
 };
 
 const snackBarSlice = createSlice({

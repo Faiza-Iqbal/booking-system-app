@@ -1,5 +1,6 @@
 // lib
 import { useEffect } from "react";
+import { If, Else, Then } from "react-if";
 import { useDispatch, useSelector } from "react-redux";
 import { Box, CircularProgress, Typography } from "@mui/material";
 
@@ -33,28 +34,46 @@ const Destinations = ({ selectedPlace }: DestinationsProps) => {
 
   return (
     <Box className="sectionPadding">
-      {status !== "loading" && tours?.length === 0 && <NoResultFound />}
-      {selectedPlace?.location_name || tours?.length ? (
-        <Typography variant="h5" className={classes.titleText}>
-          {`Top Destinations at ${getDestinationName(tours[0]?.publicAddress)}`}
-        </Typography>
-      ) : (
-        tours?.length > 0 && (
+      <If condition={selectedPlace?.location_name || tours?.length}>
+        <Then>
           <Typography variant="h5" className={classes.titleText}>
-            {`Top Destinations at Turkey`}
+            {`Top Destinations at ${getDestinationName(
+              tours[0]?.publicAddress
+            )}`}
           </Typography>
-        )
-      )}
-      {status === "loading" && (
-        <Box className={classes.loader}>
-          <CircularProgress />
-        </Box>
-      )}
-      {status === "succeeded" && (
-        <Box className="sectionPadding flexBox">
-          {tours && tours.map((tour) => <TourCard key={tour.id} tour={tour} />)}
-        </Box>
-      )}
+        </Then>
+        <Else>
+          <If condition={tours?.length > 0}>
+            <Then>
+              <Typography variant="h5" className={classes.titleText}>
+                {`Top Destinations at Turkey`}
+              </Typography>
+            </Then>
+          </If>
+        </Else>
+      </If>
+      <If condition={status !== "loading" && tours?.length === 0}>
+        <Then>
+          <NoResultFound />
+        </Then>
+        <Else>
+          <If condition={status === "loading"}>
+            <Then>
+              <Box className={classes.loader}>
+                <CircularProgress />
+              </Box>
+            </Then>
+          </If>
+        </Else>
+      </If>
+      <If condition={status === "succeeded"}>
+        <Then>
+          <Box className="sectionPadding flexBox">
+            {tours &&
+              tours.map((tour) => <TourCard key={tour.id} tour={tour} />)}
+          </Box>
+        </Then>
+      </If>
     </Box>
   );
 };
